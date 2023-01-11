@@ -1,0 +1,8 @@
+syntax = "proto3";
+package management;
+
+message GetPermissionsRequest {}
+
+message GetPermissionsResponse {
+	repeated string permission = 1;
+}

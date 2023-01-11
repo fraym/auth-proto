@@ -1,0 +1,8 @@
+syntax = "proto3";
+package management;
+
+message CreatePermissionRequest {
+	string name = 1;
+}
+
+message CreatePermissionResponse {}

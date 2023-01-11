@@ -1,0 +1,19 @@
+syntax = "proto3";
+package management;
+import "management/create_role.proto";
+import "management/update_role.proto";
+import "management/remove_role.proto";
+import "management/get_roles.proto";
+import "management/create_permission.proto";
+import "management/delete_permission.proto";
+import "management/get_permissions.proto";
+  
+service AuthService {
+	rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse);
+	rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse);
+	rpc RemoveRole(RemoveRoleRequest) returns (RemoveRoleResponse);
+	rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+	rpc CreatePermission(CreatePermissionRequest) returns (CreatePermissionResponse);
+	rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse);
+	rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse);
+}

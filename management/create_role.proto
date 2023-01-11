@@ -1,0 +1,11 @@
+syntax = "proto3";
+package management;
+
+message CreateRoleRequest {
+	string tenant_id = 1;
+	string name = 2;
+}
+
+message CreateRoleResponse {
+	string id = 1;
+}
