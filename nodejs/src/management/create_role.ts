@@ -6,6 +6,8 @@ export const protobufPackage = "management";
 export interface CreateRoleRequest {
   tenantId: string;
   name: string;
+  description: string;
+  scopes: string[];
 }
 
 export interface CreateRoleResponse {
@@ -13,7 +15,7 @@ export interface CreateRoleResponse {
 }
 
 function createBaseCreateRoleRequest(): CreateRoleRequest {
-  return { tenantId: "", name: "" };
+  return { tenantId: "", name: "", description: "", scopes: [] };
 }
 
 export const CreateRoleRequest = {
@@ -23,6 +25,12 @@ export const CreateRoleRequest = {
     }
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
+    }
+    for (const v of message.scopes) {
+      writer.uint32(34).string(v!);
     }
     return writer;
   },
@@ -40,6 +48,12 @@ export const CreateRoleRequest = {
         case 2:
           message.name = reader.string();
           break;
+        case 3:
+          message.description = reader.string();
+          break;
+        case 4:
+          message.scopes.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -52,6 +66,8 @@ export const CreateRoleRequest = {
     return {
       tenantId: isSet(object.tenantId) ? String(object.tenantId) : "",
       name: isSet(object.name) ? String(object.name) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => String(e)) : [],
     };
   },
 
@@ -59,6 +75,12 @@ export const CreateRoleRequest = {
     const obj: any = {};
     message.tenantId !== undefined && (obj.tenantId = message.tenantId);
     message.name !== undefined && (obj.name = message.name);
+    message.description !== undefined && (obj.description = message.description);
+    if (message.scopes) {
+      obj.scopes = message.scopes.map((e) => e);
+    } else {
+      obj.scopes = [];
+    }
     return obj;
   },
 
@@ -66,6 +88,8 @@ export const CreateRoleRequest = {
     const message = createBaseCreateRoleRequest();
     message.tenantId = object.tenantId ?? "";
     message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    message.scopes = object.scopes?.map((e) => e) || [];
     return message;
   },
 };

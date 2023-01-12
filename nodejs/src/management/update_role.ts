@@ -7,13 +7,15 @@ export interface UpdateRoleRequest {
   id: string;
   tenantId: string;
   name: string;
+  description: string;
+  scopes: string[];
 }
 
 export interface UpdateRoleResponse {
 }
 
 function createBaseUpdateRoleRequest(): UpdateRoleRequest {
-  return { id: "", tenantId: "", name: "" };
+  return { id: "", tenantId: "", name: "", description: "", scopes: [] };
 }
 
 export const UpdateRoleRequest = {
@@ -26,6 +28,12 @@ export const UpdateRoleRequest = {
     }
     if (message.name !== "") {
       writer.uint32(26).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(34).string(message.description);
+    }
+    for (const v of message.scopes) {
+      writer.uint32(42).string(v!);
     }
     return writer;
   },
@@ -46,6 +54,12 @@ export const UpdateRoleRequest = {
         case 3:
           message.name = reader.string();
           break;
+        case 4:
+          message.description = reader.string();
+          break;
+        case 5:
+          message.scopes.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -59,6 +73,8 @@ export const UpdateRoleRequest = {
       id: isSet(object.id) ? String(object.id) : "",
       tenantId: isSet(object.tenantId) ? String(object.tenantId) : "",
       name: isSet(object.name) ? String(object.name) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => String(e)) : [],
     };
   },
 
@@ -67,6 +83,12 @@ export const UpdateRoleRequest = {
     message.id !== undefined && (obj.id = message.id);
     message.tenantId !== undefined && (obj.tenantId = message.tenantId);
     message.name !== undefined && (obj.name = message.name);
+    message.description !== undefined && (obj.description = message.description);
+    if (message.scopes) {
+      obj.scopes = message.scopes.map((e) => e);
+    } else {
+      obj.scopes = [];
+    }
     return obj;
   },
 
@@ -75,6 +97,8 @@ export const UpdateRoleRequest = {
     message.id = object.id ?? "";
     message.tenantId = object.tenantId ?? "";
     message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    message.scopes = object.scopes?.map((e) => e) || [];
     return message;
   },
 };

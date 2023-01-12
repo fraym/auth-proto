@@ -14,6 +14,8 @@ export interface GetRolesResponse {
 export interface Role {
   id: string;
   name: string;
+  description: string;
+  scopes: string[];
 }
 
 function createBaseGetRolesRequest(): GetRolesRequest {
@@ -115,7 +117,7 @@ export const GetRolesResponse = {
 };
 
 function createBaseRole(): Role {
-  return { id: "", name: "" };
+  return { id: "", name: "", description: "", scopes: [] };
 }
 
 export const Role = {
@@ -125,6 +127,12 @@ export const Role = {
     }
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
+    }
+    for (const v of message.scopes) {
+      writer.uint32(34).string(v!);
     }
     return writer;
   },
@@ -142,6 +150,12 @@ export const Role = {
         case 2:
           message.name = reader.string();
           break;
+        case 3:
+          message.description = reader.string();
+          break;
+        case 4:
+          message.scopes.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -151,13 +165,24 @@ export const Role = {
   },
 
   fromJSON(object: any): Role {
-    return { id: isSet(object.id) ? String(object.id) : "", name: isSet(object.name) ? String(object.name) : "" };
+    return {
+      id: isSet(object.id) ? String(object.id) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => String(e)) : [],
+    };
   },
 
   toJSON(message: Role): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     message.name !== undefined && (obj.name = message.name);
+    message.description !== undefined && (obj.description = message.description);
+    if (message.scopes) {
+      obj.scopes = message.scopes.map((e) => e);
+    } else {
+      obj.scopes = [];
+    }
     return obj;
   },
 
@@ -165,6 +190,8 @@ export const Role = {
     const message = createBaseRole();
     message.id = object.id ?? "";
     message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    message.scopes = object.scopes?.map((e) => e) || [];
     return message;
   },
 };
