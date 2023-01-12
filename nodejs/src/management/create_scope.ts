@@ -3,33 +3,40 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "management";
 
-export interface CreatePermissionRequest {
+export interface CreateScopeRequest {
+  clientId: string;
   name: string;
 }
 
-export interface CreatePermissionResponse {
+export interface CreateScopeResponse {
 }
 
-function createBaseCreatePermissionRequest(): CreatePermissionRequest {
-  return { name: "" };
+function createBaseCreateScopeRequest(): CreateScopeRequest {
+  return { clientId: "", name: "" };
 }
 
-export const CreatePermissionRequest = {
-  encode(message: CreatePermissionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const CreateScopeRequest = {
+  encode(message: CreateScopeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.clientId !== "") {
+      writer.uint32(10).string(message.clientId);
+    }
     if (message.name !== "") {
-      writer.uint32(10).string(message.name);
+      writer.uint32(18).string(message.name);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): CreatePermissionRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateScopeRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreatePermissionRequest();
+    const message = createBaseCreateScopeRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.clientId = reader.string();
+          break;
+        case 2:
           message.name = reader.string();
           break;
         default:
@@ -40,36 +47,41 @@ export const CreatePermissionRequest = {
     return message;
   },
 
-  fromJSON(object: any): CreatePermissionRequest {
-    return { name: isSet(object.name) ? String(object.name) : "" };
+  fromJSON(object: any): CreateScopeRequest {
+    return {
+      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+    };
   },
 
-  toJSON(message: CreatePermissionRequest): unknown {
+  toJSON(message: CreateScopeRequest): unknown {
     const obj: any = {};
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CreatePermissionRequest>, I>>(object: I): CreatePermissionRequest {
-    const message = createBaseCreatePermissionRequest();
+  fromPartial<I extends Exact<DeepPartial<CreateScopeRequest>, I>>(object: I): CreateScopeRequest {
+    const message = createBaseCreateScopeRequest();
+    message.clientId = object.clientId ?? "";
     message.name = object.name ?? "";
     return message;
   },
 };
 
-function createBaseCreatePermissionResponse(): CreatePermissionResponse {
+function createBaseCreateScopeResponse(): CreateScopeResponse {
   return {};
 }
 
-export const CreatePermissionResponse = {
-  encode(_: CreatePermissionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const CreateScopeResponse = {
+  encode(_: CreateScopeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): CreatePermissionResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateScopeResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreatePermissionResponse();
+    const message = createBaseCreateScopeResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -81,17 +93,17 @@ export const CreatePermissionResponse = {
     return message;
   },
 
-  fromJSON(_: any): CreatePermissionResponse {
+  fromJSON(_: any): CreateScopeResponse {
     return {};
   },
 
-  toJSON(_: CreatePermissionResponse): unknown {
+  toJSON(_: CreateScopeResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CreatePermissionResponse>, I>>(_: I): CreatePermissionResponse {
-    const message = createBaseCreatePermissionResponse();
+  fromPartial<I extends Exact<DeepPartial<CreateScopeResponse>, I>>(_: I): CreateScopeResponse {
+    const message = createBaseCreateScopeResponse();
     return message;
   },
 };

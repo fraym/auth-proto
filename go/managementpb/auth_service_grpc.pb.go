@@ -26,9 +26,9 @@ type AuthServiceClient interface {
 	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
 	RemoveRole(ctx context.Context, in *RemoveRoleRequest, opts ...grpc.CallOption) (*RemoveRoleResponse, error)
 	GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesResponse, error)
-	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
-	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error)
-	GetPermissions(ctx context.Context, in *GetPermissionsRequest, opts ...grpc.CallOption) (*GetPermissionsResponse, error)
+	CreateScope(ctx context.Context, in *CreateScopeRequest, opts ...grpc.CallOption) (*CreateScopeResponse, error)
+	DeleteScope(ctx context.Context, in *DeleteScopeRequest, opts ...grpc.CallOption) (*DeleteScopeResponse, error)
+	GetScopes(ctx context.Context, in *GetScopesRequest, opts ...grpc.CallOption) (*GetScopesResponse, error)
 }
 
 type authServiceClient struct {
@@ -75,27 +75,27 @@ func (c *authServiceClient) GetRoles(ctx context.Context, in *GetRolesRequest, o
 	return out, nil
 }
 
-func (c *authServiceClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error) {
-	out := new(CreatePermissionResponse)
-	err := c.cc.Invoke(ctx, "/management.AuthService/CreatePermission", in, out, opts...)
+func (c *authServiceClient) CreateScope(ctx context.Context, in *CreateScopeRequest, opts ...grpc.CallOption) (*CreateScopeResponse, error) {
+	out := new(CreateScopeResponse)
+	err := c.cc.Invoke(ctx, "/management.AuthService/CreateScope", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error) {
-	out := new(DeletePermissionResponse)
-	err := c.cc.Invoke(ctx, "/management.AuthService/DeletePermission", in, out, opts...)
+func (c *authServiceClient) DeleteScope(ctx context.Context, in *DeleteScopeRequest, opts ...grpc.CallOption) (*DeleteScopeResponse, error) {
+	out := new(DeleteScopeResponse)
+	err := c.cc.Invoke(ctx, "/management.AuthService/DeleteScope", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) GetPermissions(ctx context.Context, in *GetPermissionsRequest, opts ...grpc.CallOption) (*GetPermissionsResponse, error) {
-	out := new(GetPermissionsResponse)
-	err := c.cc.Invoke(ctx, "/management.AuthService/GetPermissions", in, out, opts...)
+func (c *authServiceClient) GetScopes(ctx context.Context, in *GetScopesRequest, opts ...grpc.CallOption) (*GetScopesResponse, error) {
+	out := new(GetScopesResponse)
+	err := c.cc.Invoke(ctx, "/management.AuthService/GetScopes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -110,9 +110,9 @@ type AuthServiceServer interface {
 	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
 	RemoveRole(context.Context, *RemoveRoleRequest) (*RemoveRoleResponse, error)
 	GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error)
-	CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error)
-	DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error)
-	GetPermissions(context.Context, *GetPermissionsRequest) (*GetPermissionsResponse, error)
+	CreateScope(context.Context, *CreateScopeRequest) (*CreateScopeResponse, error)
+	DeleteScope(context.Context, *DeleteScopeRequest) (*DeleteScopeResponse, error)
+	GetScopes(context.Context, *GetScopesRequest) (*GetScopesResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -132,14 +132,14 @@ func (UnimplementedAuthServiceServer) RemoveRole(context.Context, *RemoveRoleReq
 func (UnimplementedAuthServiceServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoles not implemented")
 }
-func (UnimplementedAuthServiceServer) CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreatePermission not implemented")
+func (UnimplementedAuthServiceServer) CreateScope(context.Context, *CreateScopeRequest) (*CreateScopeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateScope not implemented")
 }
-func (UnimplementedAuthServiceServer) DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeletePermission not implemented")
+func (UnimplementedAuthServiceServer) DeleteScope(context.Context, *DeleteScopeRequest) (*DeleteScopeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteScope not implemented")
 }
-func (UnimplementedAuthServiceServer) GetPermissions(context.Context, *GetPermissionsRequest) (*GetPermissionsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPermissions not implemented")
+func (UnimplementedAuthServiceServer) GetScopes(context.Context, *GetScopesRequest) (*GetScopesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetScopes not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 
@@ -226,56 +226,56 @@ func _AuthService_GetRoles_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreatePermissionRequest)
+func _AuthService_CreateScope_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateScopeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).CreatePermission(ctx, in)
+		return srv.(AuthServiceServer).CreateScope(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/management.AuthService/CreatePermission",
+		FullMethod: "/management.AuthService/CreateScope",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).CreatePermission(ctx, req.(*CreatePermissionRequest))
+		return srv.(AuthServiceServer).CreateScope(ctx, req.(*CreateScopeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_DeletePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeletePermissionRequest)
+func _AuthService_DeleteScope_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteScopeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).DeletePermission(ctx, in)
+		return srv.(AuthServiceServer).DeleteScope(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/management.AuthService/DeletePermission",
+		FullMethod: "/management.AuthService/DeleteScope",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).DeletePermission(ctx, req.(*DeletePermissionRequest))
+		return srv.(AuthServiceServer).DeleteScope(ctx, req.(*DeleteScopeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_GetPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPermissionsRequest)
+func _AuthService_GetScopes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetScopesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).GetPermissions(ctx, in)
+		return srv.(AuthServiceServer).GetScopes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/management.AuthService/GetPermissions",
+		FullMethod: "/management.AuthService/GetScopes",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetPermissions(ctx, req.(*GetPermissionsRequest))
+		return srv.(AuthServiceServer).GetScopes(ctx, req.(*GetScopesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -304,16 +304,16 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthService_GetRoles_Handler,
 		},
 		{
-			MethodName: "CreatePermission",
-			Handler:    _AuthService_CreatePermission_Handler,
+			MethodName: "CreateScope",
+			Handler:    _AuthService_CreateScope_Handler,
 		},
 		{
-			MethodName: "DeletePermission",
-			Handler:    _AuthService_DeletePermission_Handler,
+			MethodName: "DeleteScope",
+			Handler:    _AuthService_DeleteScope_Handler,
 		},
 		{
-			MethodName: "GetPermissions",
-			Handler:    _AuthService_GetPermissions_Handler,
+			MethodName: "GetScopes",
+			Handler:    _AuthService_GetScopes_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

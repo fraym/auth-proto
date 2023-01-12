@@ -1,8 +1,0 @@
-syntax = "proto3";
-package management;
-
-message DeletePermissionRequest {
-	string name = 1;
-}
-
-message DeletePermissionResponse {}

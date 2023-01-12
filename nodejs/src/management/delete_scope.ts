@@ -3,33 +3,40 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "management";
 
-export interface DeletePermissionRequest {
+export interface DeleteScopeRequest {
+  clientId: string;
   name: string;
 }
 
-export interface DeletePermissionResponse {
+export interface DeleteScopeResponse {
 }
 
-function createBaseDeletePermissionRequest(): DeletePermissionRequest {
-  return { name: "" };
+function createBaseDeleteScopeRequest(): DeleteScopeRequest {
+  return { clientId: "", name: "" };
 }
 
-export const DeletePermissionRequest = {
-  encode(message: DeletePermissionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const DeleteScopeRequest = {
+  encode(message: DeleteScopeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.clientId !== "") {
+      writer.uint32(10).string(message.clientId);
+    }
     if (message.name !== "") {
-      writer.uint32(10).string(message.name);
+      writer.uint32(18).string(message.name);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): DeletePermissionRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteScopeRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseDeletePermissionRequest();
+    const message = createBaseDeleteScopeRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.clientId = reader.string();
+          break;
+        case 2:
           message.name = reader.string();
           break;
         default:
@@ -40,36 +47,41 @@ export const DeletePermissionRequest = {
     return message;
   },
 
-  fromJSON(object: any): DeletePermissionRequest {
-    return { name: isSet(object.name) ? String(object.name) : "" };
+  fromJSON(object: any): DeleteScopeRequest {
+    return {
+      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+    };
   },
 
-  toJSON(message: DeletePermissionRequest): unknown {
+  toJSON(message: DeleteScopeRequest): unknown {
     const obj: any = {};
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DeletePermissionRequest>, I>>(object: I): DeletePermissionRequest {
-    const message = createBaseDeletePermissionRequest();
+  fromPartial<I extends Exact<DeepPartial<DeleteScopeRequest>, I>>(object: I): DeleteScopeRequest {
+    const message = createBaseDeleteScopeRequest();
+    message.clientId = object.clientId ?? "";
     message.name = object.name ?? "";
     return message;
   },
 };
 
-function createBaseDeletePermissionResponse(): DeletePermissionResponse {
+function createBaseDeleteScopeResponse(): DeleteScopeResponse {
   return {};
 }
 
-export const DeletePermissionResponse = {
-  encode(_: DeletePermissionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const DeleteScopeResponse = {
+  encode(_: DeleteScopeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): DeletePermissionResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteScopeResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseDeletePermissionResponse();
+    const message = createBaseDeleteScopeResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -81,17 +93,17 @@ export const DeletePermissionResponse = {
     return message;
   },
 
-  fromJSON(_: any): DeletePermissionResponse {
+  fromJSON(_: any): DeleteScopeResponse {
     return {};
   },
 
-  toJSON(_: DeletePermissionResponse): unknown {
+  toJSON(_: DeleteScopeResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DeletePermissionResponse>, I>>(_: I): DeletePermissionResponse {
-    const message = createBaseDeletePermissionResponse();
+  fromPartial<I extends Exact<DeepPartial<DeleteScopeResponse>, I>>(_: I): DeleteScopeResponse {
+    const message = createBaseDeleteScopeResponse();
     return message;
   },
 };

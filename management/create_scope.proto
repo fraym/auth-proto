@@ -1,0 +1,9 @@
+syntax = "proto3";
+package management;
+
+message CreateScopeRequest {
+	string client_id = 1;
+	string name = 2;
+}
+
+message CreateScopeResponse {}

@@ -1,5 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
+import { RoleScope } from "./role_scope";
 
 export const protobufPackage = "management";
 
@@ -15,7 +16,7 @@ export interface Role {
   id: string;
   name: string;
   description: string;
-  scopes: string[];
+  scopes: RoleScope[];
 }
 
 function createBaseGetRolesRequest(): GetRolesRequest {
@@ -132,7 +133,7 @@ export const Role = {
       writer.uint32(26).string(message.description);
     }
     for (const v of message.scopes) {
-      writer.uint32(34).string(v!);
+      RoleScope.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -154,7 +155,7 @@ export const Role = {
           message.description = reader.string();
           break;
         case 4:
-          message.scopes.push(reader.string());
+          message.scopes.push(RoleScope.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -169,7 +170,7 @@ export const Role = {
       id: isSet(object.id) ? String(object.id) : "",
       name: isSet(object.name) ? String(object.name) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => String(e)) : [],
+      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => RoleScope.fromJSON(e)) : [],
     };
   },
 
@@ -179,7 +180,7 @@ export const Role = {
     message.name !== undefined && (obj.name = message.name);
     message.description !== undefined && (obj.description = message.description);
     if (message.scopes) {
-      obj.scopes = message.scopes.map((e) => e);
+      obj.scopes = message.scopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
     } else {
       obj.scopes = [];
     }
@@ -191,7 +192,7 @@ export const Role = {
     message.id = object.id ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
-    message.scopes = object.scopes?.map((e) => e) || [];
+    message.scopes = object.scopes?.map((e) => RoleScope.fromPartial(e)) || [];
     return message;
   },
 };

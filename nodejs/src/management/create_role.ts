@@ -1,5 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
+import { RoleScope } from "./role_scope";
 
 export const protobufPackage = "management";
 
@@ -7,7 +8,7 @@ export interface CreateRoleRequest {
   tenantId: string;
   name: string;
   description: string;
-  scopes: string[];
+  allowedScopes: RoleScope[];
 }
 
 export interface CreateRoleResponse {
@@ -15,7 +16,7 @@ export interface CreateRoleResponse {
 }
 
 function createBaseCreateRoleRequest(): CreateRoleRequest {
-  return { tenantId: "", name: "", description: "", scopes: [] };
+  return { tenantId: "", name: "", description: "", allowedScopes: [] };
 }
 
 export const CreateRoleRequest = {
@@ -29,8 +30,8 @@ export const CreateRoleRequest = {
     if (message.description !== "") {
       writer.uint32(26).string(message.description);
     }
-    for (const v of message.scopes) {
-      writer.uint32(34).string(v!);
+    for (const v of message.allowedScopes) {
+      RoleScope.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -52,7 +53,7 @@ export const CreateRoleRequest = {
           message.description = reader.string();
           break;
         case 4:
-          message.scopes.push(reader.string());
+          message.allowedScopes.push(RoleScope.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -67,7 +68,9 @@ export const CreateRoleRequest = {
       tenantId: isSet(object.tenantId) ? String(object.tenantId) : "",
       name: isSet(object.name) ? String(object.name) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => String(e)) : [],
+      allowedScopes: Array.isArray(object?.allowedScopes)
+        ? object.allowedScopes.map((e: any) => RoleScope.fromJSON(e))
+        : [],
     };
   },
 
@@ -76,10 +79,10 @@ export const CreateRoleRequest = {
     message.tenantId !== undefined && (obj.tenantId = message.tenantId);
     message.name !== undefined && (obj.name = message.name);
     message.description !== undefined && (obj.description = message.description);
-    if (message.scopes) {
-      obj.scopes = message.scopes.map((e) => e);
+    if (message.allowedScopes) {
+      obj.allowedScopes = message.allowedScopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
     } else {
-      obj.scopes = [];
+      obj.allowedScopes = [];
     }
     return obj;
   },
@@ -89,7 +92,7 @@ export const CreateRoleRequest = {
     message.tenantId = object.tenantId ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
-    message.scopes = object.scopes?.map((e) => e) || [];
+    message.allowedScopes = object.allowedScopes?.map((e) => RoleScope.fromPartial(e)) || [];
     return message;
   },
 };

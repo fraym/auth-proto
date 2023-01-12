@@ -1,0 +1,10 @@
+syntax = "proto3";
+package management;
+
+message GetScopesRequest {
+	string client_id = 1;
+}
+
+message GetScopesResponse {
+	repeated string scopes = 1;
+}

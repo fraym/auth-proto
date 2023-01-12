@@ -11,11 +11,11 @@ import {
   ServiceError,
   UntypedServiceImplementation,
 } from "@grpc/grpc-js";
-import { CreatePermissionRequest, CreatePermissionResponse } from "./create_permission";
 import { CreateRoleRequest, CreateRoleResponse } from "./create_role";
-import { DeletePermissionRequest, DeletePermissionResponse } from "./delete_permission";
-import { GetPermissionsRequest, GetPermissionsResponse } from "./get_permissions";
+import { CreateScopeRequest, CreateScopeResponse } from "./create_scope";
+import { DeleteScopeRequest, DeleteScopeResponse } from "./delete_scope";
 import { GetRolesRequest, GetRolesResponse } from "./get_roles";
+import { GetScopesRequest, GetScopesResponse } from "./get_scopes";
 import { RemoveRoleRequest, RemoveRoleResponse } from "./remove_role";
 import { UpdateRoleRequest, UpdateRoleResponse } from "./update_role";
 
@@ -59,34 +59,32 @@ export const AuthServiceService = {
     responseSerialize: (value: GetRolesResponse) => Buffer.from(GetRolesResponse.encode(value).finish()),
     responseDeserialize: (value: Buffer) => GetRolesResponse.decode(value),
   },
-  createPermission: {
-    path: "/management.AuthService/CreatePermission",
+  createScope: {
+    path: "/management.AuthService/CreateScope",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: CreatePermissionRequest) => Buffer.from(CreatePermissionRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => CreatePermissionRequest.decode(value),
-    responseSerialize: (value: CreatePermissionResponse) =>
-      Buffer.from(CreatePermissionResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => CreatePermissionResponse.decode(value),
+    requestSerialize: (value: CreateScopeRequest) => Buffer.from(CreateScopeRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => CreateScopeRequest.decode(value),
+    responseSerialize: (value: CreateScopeResponse) => Buffer.from(CreateScopeResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => CreateScopeResponse.decode(value),
   },
-  deletePermission: {
-    path: "/management.AuthService/DeletePermission",
+  deleteScope: {
+    path: "/management.AuthService/DeleteScope",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: DeletePermissionRequest) => Buffer.from(DeletePermissionRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => DeletePermissionRequest.decode(value),
-    responseSerialize: (value: DeletePermissionResponse) =>
-      Buffer.from(DeletePermissionResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => DeletePermissionResponse.decode(value),
+    requestSerialize: (value: DeleteScopeRequest) => Buffer.from(DeleteScopeRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => DeleteScopeRequest.decode(value),
+    responseSerialize: (value: DeleteScopeResponse) => Buffer.from(DeleteScopeResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => DeleteScopeResponse.decode(value),
   },
-  getPermissions: {
-    path: "/management.AuthService/GetPermissions",
+  getScopes: {
+    path: "/management.AuthService/GetScopes",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: GetPermissionsRequest) => Buffer.from(GetPermissionsRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => GetPermissionsRequest.decode(value),
-    responseSerialize: (value: GetPermissionsResponse) => Buffer.from(GetPermissionsResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => GetPermissionsResponse.decode(value),
+    requestSerialize: (value: GetScopesRequest) => Buffer.from(GetScopesRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => GetScopesRequest.decode(value),
+    responseSerialize: (value: GetScopesResponse) => Buffer.from(GetScopesResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => GetScopesResponse.decode(value),
   },
 } as const;
 
@@ -95,9 +93,9 @@ export interface AuthServiceServer extends UntypedServiceImplementation {
   updateRole: handleUnaryCall<UpdateRoleRequest, UpdateRoleResponse>;
   removeRole: handleUnaryCall<RemoveRoleRequest, RemoveRoleResponse>;
   getRoles: handleUnaryCall<GetRolesRequest, GetRolesResponse>;
-  createPermission: handleUnaryCall<CreatePermissionRequest, CreatePermissionResponse>;
-  deletePermission: handleUnaryCall<DeletePermissionRequest, DeletePermissionResponse>;
-  getPermissions: handleUnaryCall<GetPermissionsRequest, GetPermissionsResponse>;
+  createScope: handleUnaryCall<CreateScopeRequest, CreateScopeResponse>;
+  deleteScope: handleUnaryCall<DeleteScopeRequest, DeleteScopeResponse>;
+  getScopes: handleUnaryCall<GetScopesRequest, GetScopesResponse>;
 }
 
 export interface AuthServiceClient extends Client {
@@ -161,50 +159,50 @@ export interface AuthServiceClient extends Client {
     options: Partial<CallOptions>,
     callback: (error: ServiceError | null, response: GetRolesResponse) => void,
   ): ClientUnaryCall;
-  createPermission(
-    request: CreatePermissionRequest,
-    callback: (error: ServiceError | null, response: CreatePermissionResponse) => void,
+  createScope(
+    request: CreateScopeRequest,
+    callback: (error: ServiceError | null, response: CreateScopeResponse) => void,
   ): ClientUnaryCall;
-  createPermission(
-    request: CreatePermissionRequest,
+  createScope(
+    request: CreateScopeRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: CreatePermissionResponse) => void,
+    callback: (error: ServiceError | null, response: CreateScopeResponse) => void,
   ): ClientUnaryCall;
-  createPermission(
-    request: CreatePermissionRequest,
-    metadata: Metadata,
-    options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: CreatePermissionResponse) => void,
-  ): ClientUnaryCall;
-  deletePermission(
-    request: DeletePermissionRequest,
-    callback: (error: ServiceError | null, response: DeletePermissionResponse) => void,
-  ): ClientUnaryCall;
-  deletePermission(
-    request: DeletePermissionRequest,
-    metadata: Metadata,
-    callback: (error: ServiceError | null, response: DeletePermissionResponse) => void,
-  ): ClientUnaryCall;
-  deletePermission(
-    request: DeletePermissionRequest,
+  createScope(
+    request: CreateScopeRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: DeletePermissionResponse) => void,
+    callback: (error: ServiceError | null, response: CreateScopeResponse) => void,
   ): ClientUnaryCall;
-  getPermissions(
-    request: GetPermissionsRequest,
-    callback: (error: ServiceError | null, response: GetPermissionsResponse) => void,
+  deleteScope(
+    request: DeleteScopeRequest,
+    callback: (error: ServiceError | null, response: DeleteScopeResponse) => void,
   ): ClientUnaryCall;
-  getPermissions(
-    request: GetPermissionsRequest,
+  deleteScope(
+    request: DeleteScopeRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: GetPermissionsResponse) => void,
+    callback: (error: ServiceError | null, response: DeleteScopeResponse) => void,
   ): ClientUnaryCall;
-  getPermissions(
-    request: GetPermissionsRequest,
+  deleteScope(
+    request: DeleteScopeRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: GetPermissionsResponse) => void,
+    callback: (error: ServiceError | null, response: DeleteScopeResponse) => void,
+  ): ClientUnaryCall;
+  getScopes(
+    request: GetScopesRequest,
+    callback: (error: ServiceError | null, response: GetScopesResponse) => void,
+  ): ClientUnaryCall;
+  getScopes(
+    request: GetScopesRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetScopesResponse) => void,
+  ): ClientUnaryCall;
+  getScopes(
+    request: GetScopesRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetScopesResponse) => void,
   ): ClientUnaryCall;
 }
 
