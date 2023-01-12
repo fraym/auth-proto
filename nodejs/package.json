@@ -1,11 +1,11 @@
 {
     "name": "@fraym/auth-proto",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "license": "UNLICENSED",
-    "homepage": "https://github.com/fraym/projections-proto",
+    "homepage": "https://github.com/fraym/auth-proto",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/fraym/projections-proto.git"
+        "url": "git+https://github.com/fraym/auth-proto.git"
     },
     "description": "nodejs generated protobuf code for our auth service",
     "scripts": {
