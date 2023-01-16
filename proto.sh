@@ -4,10 +4,7 @@ for filename in ./management/*.proto; do
 	params="$params --go-grpc_opt=Mmanagement/$(basename $filename)=github.com/fraym/auth-proto/go/managementpb"
 done
 
-for filename in ./delivery/*.proto; do
-	params="$params --go_opt=Mdelivery/$(basename $filename)=github.com/fraym/auth-proto/go/deliverypb"
-	params="$params --go-grpc_opt=Mdelivery/$(basename $filename)=github.com/fraym/auth-proto/go/deliverypb"
-done
+rm -rf ./go/managementpb
 
 protoc \
   --proto_path=./ \
@@ -17,3 +14,6 @@ protoc \
 	--go_opt=module=github.com/fraym/auth-proto/go \
 	--go-grpc_opt=module=github.com/fraym/auth-proto/go \
 	**/*.proto
+
+cd go && go mod tidy && go get -u all && go mod tidy
+

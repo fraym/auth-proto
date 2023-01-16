@@ -1,3 +1,7 @@
+# v0.3.1
+
+- (bug) Fix go package
+
 # v0.3.0
 
 - (bc) Rename permissions to scopes
