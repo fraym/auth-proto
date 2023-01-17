@@ -4,7 +4,7 @@ import "management/role_scope.proto";
 
 message CreateRoleRequest {
 	string tenant_id = 1;
-	string name = 2;
+	string display_name = 2;
 	string description = 3;
 	repeated RoleScope allowed_scopes = 4;
 }

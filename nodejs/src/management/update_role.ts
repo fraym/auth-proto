@@ -7,16 +7,16 @@ export const protobufPackage = "management";
 export interface UpdateRoleRequest {
   id: string;
   tenantId: string;
-  name: string;
+  displayName: string;
   description: string;
-  scopes: RoleScope[];
+  allowedScopes: RoleScope[];
 }
 
 export interface UpdateRoleResponse {
 }
 
 function createBaseUpdateRoleRequest(): UpdateRoleRequest {
-  return { id: "", tenantId: "", name: "", description: "", scopes: [] };
+  return { id: "", tenantId: "", displayName: "", description: "", allowedScopes: [] };
 }
 
 export const UpdateRoleRequest = {
@@ -27,13 +27,13 @@ export const UpdateRoleRequest = {
     if (message.tenantId !== "") {
       writer.uint32(18).string(message.tenantId);
     }
-    if (message.name !== "") {
-      writer.uint32(26).string(message.name);
+    if (message.displayName !== "") {
+      writer.uint32(26).string(message.displayName);
     }
     if (message.description !== "") {
       writer.uint32(34).string(message.description);
     }
-    for (const v of message.scopes) {
+    for (const v of message.allowedScopes) {
       RoleScope.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
@@ -53,13 +53,13 @@ export const UpdateRoleRequest = {
           message.tenantId = reader.string();
           break;
         case 3:
-          message.name = reader.string();
+          message.displayName = reader.string();
           break;
         case 4:
           message.description = reader.string();
           break;
         case 5:
-          message.scopes.push(RoleScope.decode(reader, reader.uint32()));
+          message.allowedScopes.push(RoleScope.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -73,9 +73,11 @@ export const UpdateRoleRequest = {
     return {
       id: isSet(object.id) ? String(object.id) : "",
       tenantId: isSet(object.tenantId) ? String(object.tenantId) : "",
-      name: isSet(object.name) ? String(object.name) : "",
+      displayName: isSet(object.displayName) ? String(object.displayName) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => RoleScope.fromJSON(e)) : [],
+      allowedScopes: Array.isArray(object?.allowedScopes)
+        ? object.allowedScopes.map((e: any) => RoleScope.fromJSON(e))
+        : [],
     };
   },
 
@@ -83,12 +85,12 @@ export const UpdateRoleRequest = {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     message.tenantId !== undefined && (obj.tenantId = message.tenantId);
-    message.name !== undefined && (obj.name = message.name);
+    message.displayName !== undefined && (obj.displayName = message.displayName);
     message.description !== undefined && (obj.description = message.description);
-    if (message.scopes) {
-      obj.scopes = message.scopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
+    if (message.allowedScopes) {
+      obj.allowedScopes = message.allowedScopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
     } else {
-      obj.scopes = [];
+      obj.allowedScopes = [];
     }
     return obj;
   },
@@ -97,9 +99,9 @@ export const UpdateRoleRequest = {
     const message = createBaseUpdateRoleRequest();
     message.id = object.id ?? "";
     message.tenantId = object.tenantId ?? "";
-    message.name = object.name ?? "";
+    message.displayName = object.displayName ?? "";
     message.description = object.description ?? "";
-    message.scopes = object.scopes?.map((e) => RoleScope.fromPartial(e)) || [];
+    message.allowedScopes = object.allowedScopes?.map((e) => RoleScope.fromPartial(e)) || [];
     return message;
   },
 };

@@ -1,3 +1,7 @@
+# v0.3.2
+
+- (bug) Fix role field namings
+
 # v0.3.1
 
 - (bug) Fix go package

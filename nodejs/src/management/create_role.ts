@@ -6,7 +6,7 @@ export const protobufPackage = "management";
 
 export interface CreateRoleRequest {
   tenantId: string;
-  name: string;
+  displayName: string;
   description: string;
   allowedScopes: RoleScope[];
 }
@@ -16,7 +16,7 @@ export interface CreateRoleResponse {
 }
 
 function createBaseCreateRoleRequest(): CreateRoleRequest {
-  return { tenantId: "", name: "", description: "", allowedScopes: [] };
+  return { tenantId: "", displayName: "", description: "", allowedScopes: [] };
 }
 
 export const CreateRoleRequest = {
@@ -24,8 +24,8 @@ export const CreateRoleRequest = {
     if (message.tenantId !== "") {
       writer.uint32(10).string(message.tenantId);
     }
-    if (message.name !== "") {
-      writer.uint32(18).string(message.name);
+    if (message.displayName !== "") {
+      writer.uint32(18).string(message.displayName);
     }
     if (message.description !== "") {
       writer.uint32(26).string(message.description);
@@ -47,7 +47,7 @@ export const CreateRoleRequest = {
           message.tenantId = reader.string();
           break;
         case 2:
-          message.name = reader.string();
+          message.displayName = reader.string();
           break;
         case 3:
           message.description = reader.string();
@@ -66,7 +66,7 @@ export const CreateRoleRequest = {
   fromJSON(object: any): CreateRoleRequest {
     return {
       tenantId: isSet(object.tenantId) ? String(object.tenantId) : "",
-      name: isSet(object.name) ? String(object.name) : "",
+      displayName: isSet(object.displayName) ? String(object.displayName) : "",
       description: isSet(object.description) ? String(object.description) : "",
       allowedScopes: Array.isArray(object?.allowedScopes)
         ? object.allowedScopes.map((e: any) => RoleScope.fromJSON(e))
@@ -77,7 +77,7 @@ export const CreateRoleRequest = {
   toJSON(message: CreateRoleRequest): unknown {
     const obj: any = {};
     message.tenantId !== undefined && (obj.tenantId = message.tenantId);
-    message.name !== undefined && (obj.name = message.name);
+    message.displayName !== undefined && (obj.displayName = message.displayName);
     message.description !== undefined && (obj.description = message.description);
     if (message.allowedScopes) {
       obj.allowedScopes = message.allowedScopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
@@ -90,7 +90,7 @@ export const CreateRoleRequest = {
   fromPartial<I extends Exact<DeepPartial<CreateRoleRequest>, I>>(object: I): CreateRoleRequest {
     const message = createBaseCreateRoleRequest();
     message.tenantId = object.tenantId ?? "";
-    message.name = object.name ?? "";
+    message.displayName = object.displayName ?? "";
     message.description = object.description ?? "";
     message.allowedScopes = object.allowedScopes?.map((e) => RoleScope.fromPartial(e)) || [];
     return message;
