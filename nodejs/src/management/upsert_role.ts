@@ -4,28 +4,28 @@ import { RoleScope } from "./role_scope";
 
 export const protobufPackage = "management";
 
-export interface UpdateRoleRequest {
-  id: string;
+export interface UpsertRoleRequest {
   tenantId: string;
+  id: string;
   displayName: string;
   description: string;
   allowedScopes: RoleScope[];
 }
 
-export interface UpdateRoleResponse {
+export interface UpsertRoleResponse {
 }
 
-function createBaseUpdateRoleRequest(): UpdateRoleRequest {
-  return { id: "", tenantId: "", displayName: "", description: "", allowedScopes: [] };
+function createBaseUpsertRoleRequest(): UpsertRoleRequest {
+  return { tenantId: "", id: "", displayName: "", description: "", allowedScopes: [] };
 }
 
-export const UpdateRoleRequest = {
-  encode(message: UpdateRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
-      writer.uint32(10).string(message.id);
-    }
+export const UpsertRoleRequest = {
+  encode(message: UpsertRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.tenantId !== "") {
-      writer.uint32(18).string(message.tenantId);
+      writer.uint32(10).string(message.tenantId);
+    }
+    if (message.id !== "") {
+      writer.uint32(18).string(message.id);
     }
     if (message.displayName !== "") {
       writer.uint32(26).string(message.displayName);
@@ -39,18 +39,18 @@ export const UpdateRoleRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateRoleRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpsertRoleRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateRoleRequest();
+    const message = createBaseUpsertRoleRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = reader.string();
+          message.tenantId = reader.string();
           break;
         case 2:
-          message.tenantId = reader.string();
+          message.id = reader.string();
           break;
         case 3:
           message.displayName = reader.string();
@@ -69,10 +69,10 @@ export const UpdateRoleRequest = {
     return message;
   },
 
-  fromJSON(object: any): UpdateRoleRequest {
+  fromJSON(object: any): UpsertRoleRequest {
     return {
-      id: isSet(object.id) ? String(object.id) : "",
       tenantId: isSet(object.tenantId) ? String(object.tenantId) : "",
+      id: isSet(object.id) ? String(object.id) : "",
       displayName: isSet(object.displayName) ? String(object.displayName) : "",
       description: isSet(object.description) ? String(object.description) : "",
       allowedScopes: Array.isArray(object?.allowedScopes)
@@ -81,10 +81,10 @@ export const UpdateRoleRequest = {
     };
   },
 
-  toJSON(message: UpdateRoleRequest): unknown {
+  toJSON(message: UpsertRoleRequest): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
     message.tenantId !== undefined && (obj.tenantId = message.tenantId);
+    message.id !== undefined && (obj.id = message.id);
     message.displayName !== undefined && (obj.displayName = message.displayName);
     message.description !== undefined && (obj.description = message.description);
     if (message.allowedScopes) {
@@ -95,10 +95,10 @@ export const UpdateRoleRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<UpdateRoleRequest>, I>>(object: I): UpdateRoleRequest {
-    const message = createBaseUpdateRoleRequest();
-    message.id = object.id ?? "";
+  fromPartial<I extends Exact<DeepPartial<UpsertRoleRequest>, I>>(object: I): UpsertRoleRequest {
+    const message = createBaseUpsertRoleRequest();
     message.tenantId = object.tenantId ?? "";
+    message.id = object.id ?? "";
     message.displayName = object.displayName ?? "";
     message.description = object.description ?? "";
     message.allowedScopes = object.allowedScopes?.map((e) => RoleScope.fromPartial(e)) || [];
@@ -106,19 +106,19 @@ export const UpdateRoleRequest = {
   },
 };
 
-function createBaseUpdateRoleResponse(): UpdateRoleResponse {
+function createBaseUpsertRoleResponse(): UpsertRoleResponse {
   return {};
 }
 
-export const UpdateRoleResponse = {
-  encode(_: UpdateRoleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const UpsertRoleResponse = {
+  encode(_: UpsertRoleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateRoleResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpsertRoleResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateRoleResponse();
+    const message = createBaseUpsertRoleResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -130,17 +130,17 @@ export const UpdateRoleResponse = {
     return message;
   },
 
-  fromJSON(_: any): UpdateRoleResponse {
+  fromJSON(_: any): UpsertRoleResponse {
     return {};
   },
 
-  toJSON(_: UpdateRoleResponse): unknown {
+  toJSON(_: UpsertRoleResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<UpdateRoleResponse>, I>>(_: I): UpdateRoleResponse {
-    const message = createBaseUpdateRoleResponse();
+  fromPartial<I extends Exact<DeepPartial<UpsertRoleResponse>, I>>(_: I): UpsertRoleResponse {
+    const message = createBaseUpsertRoleResponse();
     return message;
   },
 };

@@ -1,19 +1,17 @@
 syntax = "proto3";
 package management;
-import "management/create_role.proto";
-import "management/update_role.proto";
-import "management/remove_role.proto";
+import "management/upsert_role.proto";
+import "management/delete_role.proto";
 import "management/get_roles.proto";
 import "management/create_scope.proto";
 import "management/delete_scope.proto";
 import "management/get_scopes.proto";
   
 service AuthService {
-	rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse);
-	rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse);
-	rpc RemoveRole(RemoveRoleRequest) returns (RemoveRoleResponse);
+	rpc UpsertRole(UpsertRoleRequest) returns (UpsertRoleResponse);
+	rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse);
 	rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
-
+ 
 	rpc CreateScope(CreateScopeRequest) returns (CreateScopeResponse);
 	rpc DeleteScope(DeleteScopeRequest) returns (DeleteScopeResponse);
 	rpc GetScopes(GetScopesRequest) returns (GetScopesResponse);

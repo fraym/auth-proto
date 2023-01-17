@@ -22,9 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthServiceClient interface {
-	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
-	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
-	RemoveRole(ctx context.Context, in *RemoveRoleRequest, opts ...grpc.CallOption) (*RemoveRoleResponse, error)
+	UpsertRole(ctx context.Context, in *UpsertRoleRequest, opts ...grpc.CallOption) (*UpsertRoleResponse, error)
+	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
 	GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesResponse, error)
 	CreateScope(ctx context.Context, in *CreateScopeRequest, opts ...grpc.CallOption) (*CreateScopeResponse, error)
 	DeleteScope(ctx context.Context, in *DeleteScopeRequest, opts ...grpc.CallOption) (*DeleteScopeResponse, error)
@@ -39,27 +38,18 @@ func NewAuthServiceClient(cc grpc.ClientConnInterface) AuthServiceClient {
 	return &authServiceClient{cc}
 }
 
-func (c *authServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
-	out := new(CreateRoleResponse)
-	err := c.cc.Invoke(ctx, "/management.AuthService/CreateRole", in, out, opts...)
+func (c *authServiceClient) UpsertRole(ctx context.Context, in *UpsertRoleRequest, opts ...grpc.CallOption) (*UpsertRoleResponse, error) {
+	out := new(UpsertRoleResponse)
+	err := c.cc.Invoke(ctx, "/management.AuthService/UpsertRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
-	out := new(UpdateRoleResponse)
-	err := c.cc.Invoke(ctx, "/management.AuthService/UpdateRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) RemoveRole(ctx context.Context, in *RemoveRoleRequest, opts ...grpc.CallOption) (*RemoveRoleResponse, error) {
-	out := new(RemoveRoleResponse)
-	err := c.cc.Invoke(ctx, "/management.AuthService/RemoveRole", in, out, opts...)
+func (c *authServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error) {
+	out := new(DeleteRoleResponse)
+	err := c.cc.Invoke(ctx, "/management.AuthService/DeleteRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -106,9 +96,8 @@ func (c *authServiceClient) GetScopes(ctx context.Context, in *GetScopesRequest,
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility
 type AuthServiceServer interface {
-	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
-	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
-	RemoveRole(context.Context, *RemoveRoleRequest) (*RemoveRoleResponse, error)
+	UpsertRole(context.Context, *UpsertRoleRequest) (*UpsertRoleResponse, error)
+	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
 	GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error)
 	CreateScope(context.Context, *CreateScopeRequest) (*CreateScopeResponse, error)
 	DeleteScope(context.Context, *DeleteScopeRequest) (*DeleteScopeResponse, error)
@@ -120,14 +109,11 @@ type AuthServiceServer interface {
 type UnimplementedAuthServiceServer struct {
 }
 
-func (UnimplementedAuthServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+func (UnimplementedAuthServiceServer) UpsertRole(context.Context, *UpsertRoleRequest) (*UpsertRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertRole not implemented")
 }
-func (UnimplementedAuthServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
-}
-func (UnimplementedAuthServiceServer) RemoveRole(context.Context, *RemoveRoleRequest) (*RemoveRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveRole not implemented")
+func (UnimplementedAuthServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
 }
 func (UnimplementedAuthServiceServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoles not implemented")
@@ -154,56 +140,38 @@ func RegisterAuthServiceServer(s grpc.ServiceRegistrar, srv AuthServiceServer) {
 	s.RegisterService(&AuthService_ServiceDesc, srv)
 }
 
-func _AuthService_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRoleRequest)
+func _AuthService_UpsertRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpsertRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).CreateRole(ctx, in)
+		return srv.(AuthServiceServer).UpsertRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/management.AuthService/CreateRole",
+		FullMethod: "/management.AuthService/UpsertRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).CreateRole(ctx, req.(*CreateRoleRequest))
+		return srv.(AuthServiceServer).UpsertRole(ctx, req.(*UpsertRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRoleRequest)
+func _AuthService_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).UpdateRole(ctx, in)
+		return srv.(AuthServiceServer).DeleteRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/management.AuthService/UpdateRole",
+		FullMethod: "/management.AuthService/DeleteRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_RemoveRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveRoleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).RemoveRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/management.AuthService/RemoveRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).RemoveRole(ctx, req.(*RemoveRoleRequest))
+		return srv.(AuthServiceServer).DeleteRole(ctx, req.(*DeleteRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -288,16 +256,12 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateRole",
-			Handler:    _AuthService_CreateRole_Handler,
+			MethodName: "UpsertRole",
+			Handler:    _AuthService_UpsertRole_Handler,
 		},
 		{
-			MethodName: "UpdateRole",
-			Handler:    _AuthService_UpdateRole_Handler,
-		},
-		{
-			MethodName: "RemoveRole",
-			Handler:    _AuthService_RemoveRole_Handler,
+			MethodName: "DeleteRole",
+			Handler:    _AuthService_DeleteRole_Handler,
 		},
 		{
 			MethodName: "GetRoles",

@@ -4,13 +4,11 @@ export {
     AuthServiceService as ManagementServiceService,
 } from "./management/auth_service";
 
-export { CreateRoleRequest, CreateRoleResponse, DeepPartial } from "./management/create_role";
+export { UpsertRoleRequest, UpsertRoleResponse, DeepPartial } from "./management/upsert_role";
 export { RoleScope } from "./management/role_scope";
 export { CreateScopeRequest, CreateScopeResponse } from "./management/create_scope";
 
-export { UpdateRoleRequest, UpdateRoleResponse } from "./management/update_role";
-
-export { RemoveRoleRequest, RemoveRoleResponse } from "./management/remove_role";
+export { DeleteRoleRequest, DeleteRoleResponse } from "./management/delete_role";
 export { DeleteScopeRequest, DeleteScopeResponse } from "./management/delete_scope";
 
 export { GetRolesRequest, GetRolesResponse, Role } from "./management/get_roles";

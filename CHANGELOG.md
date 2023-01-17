@@ -1,3 +1,7 @@
+# v0.3.3
+
+- (bug) Fix role api functions
+
 # v0.3.2
 
 - (bug) Fix role field namings

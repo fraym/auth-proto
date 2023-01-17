@@ -11,44 +11,34 @@ import {
   ServiceError,
   UntypedServiceImplementation,
 } from "@grpc/grpc-js";
-import { CreateRoleRequest, CreateRoleResponse } from "./create_role";
 import { CreateScopeRequest, CreateScopeResponse } from "./create_scope";
+import { DeleteRoleRequest, DeleteRoleResponse } from "./delete_role";
 import { DeleteScopeRequest, DeleteScopeResponse } from "./delete_scope";
 import { GetRolesRequest, GetRolesResponse } from "./get_roles";
 import { GetScopesRequest, GetScopesResponse } from "./get_scopes";
-import { RemoveRoleRequest, RemoveRoleResponse } from "./remove_role";
-import { UpdateRoleRequest, UpdateRoleResponse } from "./update_role";
+import { UpsertRoleRequest, UpsertRoleResponse } from "./upsert_role";
 
 export const protobufPackage = "management";
 
 export type AuthServiceService = typeof AuthServiceService;
 export const AuthServiceService = {
-  createRole: {
-    path: "/management.AuthService/CreateRole",
+  upsertRole: {
+    path: "/management.AuthService/UpsertRole",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: CreateRoleRequest) => Buffer.from(CreateRoleRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => CreateRoleRequest.decode(value),
-    responseSerialize: (value: CreateRoleResponse) => Buffer.from(CreateRoleResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => CreateRoleResponse.decode(value),
+    requestSerialize: (value: UpsertRoleRequest) => Buffer.from(UpsertRoleRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => UpsertRoleRequest.decode(value),
+    responseSerialize: (value: UpsertRoleResponse) => Buffer.from(UpsertRoleResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => UpsertRoleResponse.decode(value),
   },
-  updateRole: {
-    path: "/management.AuthService/UpdateRole",
+  deleteRole: {
+    path: "/management.AuthService/DeleteRole",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: UpdateRoleRequest) => Buffer.from(UpdateRoleRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => UpdateRoleRequest.decode(value),
-    responseSerialize: (value: UpdateRoleResponse) => Buffer.from(UpdateRoleResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => UpdateRoleResponse.decode(value),
-  },
-  removeRole: {
-    path: "/management.AuthService/RemoveRole",
-    requestStream: false,
-    responseStream: false,
-    requestSerialize: (value: RemoveRoleRequest) => Buffer.from(RemoveRoleRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => RemoveRoleRequest.decode(value),
-    responseSerialize: (value: RemoveRoleResponse) => Buffer.from(RemoveRoleResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => RemoveRoleResponse.decode(value),
+    requestSerialize: (value: DeleteRoleRequest) => Buffer.from(DeleteRoleRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => DeleteRoleRequest.decode(value),
+    responseSerialize: (value: DeleteRoleResponse) => Buffer.from(DeleteRoleResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => DeleteRoleResponse.decode(value),
   },
   getRoles: {
     path: "/management.AuthService/GetRoles",
@@ -89,9 +79,8 @@ export const AuthServiceService = {
 } as const;
 
 export interface AuthServiceServer extends UntypedServiceImplementation {
-  createRole: handleUnaryCall<CreateRoleRequest, CreateRoleResponse>;
-  updateRole: handleUnaryCall<UpdateRoleRequest, UpdateRoleResponse>;
-  removeRole: handleUnaryCall<RemoveRoleRequest, RemoveRoleResponse>;
+  upsertRole: handleUnaryCall<UpsertRoleRequest, UpsertRoleResponse>;
+  deleteRole: handleUnaryCall<DeleteRoleRequest, DeleteRoleResponse>;
   getRoles: handleUnaryCall<GetRolesRequest, GetRolesResponse>;
   createScope: handleUnaryCall<CreateScopeRequest, CreateScopeResponse>;
   deleteScope: handleUnaryCall<DeleteScopeRequest, DeleteScopeResponse>;
@@ -99,50 +88,35 @@ export interface AuthServiceServer extends UntypedServiceImplementation {
 }
 
 export interface AuthServiceClient extends Client {
-  createRole(
-    request: CreateRoleRequest,
-    callback: (error: ServiceError | null, response: CreateRoleResponse) => void,
+  upsertRole(
+    request: UpsertRoleRequest,
+    callback: (error: ServiceError | null, response: UpsertRoleResponse) => void,
   ): ClientUnaryCall;
-  createRole(
-    request: CreateRoleRequest,
+  upsertRole(
+    request: UpsertRoleRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: CreateRoleResponse) => void,
+    callback: (error: ServiceError | null, response: UpsertRoleResponse) => void,
   ): ClientUnaryCall;
-  createRole(
-    request: CreateRoleRequest,
-    metadata: Metadata,
-    options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: CreateRoleResponse) => void,
-  ): ClientUnaryCall;
-  updateRole(
-    request: UpdateRoleRequest,
-    callback: (error: ServiceError | null, response: UpdateRoleResponse) => void,
-  ): ClientUnaryCall;
-  updateRole(
-    request: UpdateRoleRequest,
-    metadata: Metadata,
-    callback: (error: ServiceError | null, response: UpdateRoleResponse) => void,
-  ): ClientUnaryCall;
-  updateRole(
-    request: UpdateRoleRequest,
+  upsertRole(
+    request: UpsertRoleRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: UpdateRoleResponse) => void,
+    callback: (error: ServiceError | null, response: UpsertRoleResponse) => void,
   ): ClientUnaryCall;
-  removeRole(
-    request: RemoveRoleRequest,
-    callback: (error: ServiceError | null, response: RemoveRoleResponse) => void,
+  deleteRole(
+    request: DeleteRoleRequest,
+    callback: (error: ServiceError | null, response: DeleteRoleResponse) => void,
   ): ClientUnaryCall;
-  removeRole(
-    request: RemoveRoleRequest,
+  deleteRole(
+    request: DeleteRoleRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: RemoveRoleResponse) => void,
+    callback: (error: ServiceError | null, response: DeleteRoleResponse) => void,
   ): ClientUnaryCall;
-  removeRole(
-    request: RemoveRoleRequest,
+  deleteRole(
+    request: DeleteRoleRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: RemoveRoleResponse) => void,
+    callback: (error: ServiceError | null, response: DeleteRoleResponse) => void,
   ): ClientUnaryCall;
   getRoles(
     request: GetRolesRequest,

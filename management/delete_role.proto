@@ -1,9 +1,9 @@
 syntax = "proto3";
 package management;
 
-message RemoveRoleRequest {
+message DeleteRoleRequest {
 	 string id = 1;
 	 string tenant_id = 2;
 }
 
-message RemoveRoleResponse {}
+message DeleteRoleResponse {}

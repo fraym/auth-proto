@@ -2,12 +2,12 @@ syntax = "proto3";
 package management;
 import "management/role_scope.proto";
 
-message UpdateRoleRequest {
-	string id = 1;
-	string tenant_id = 2;
+message UpsertRoleRequest {
+	string tenant_id = 1;
+	string id = 2;
 	string display_name = 3;
 	string description = 4;
 	repeated RoleScope allowed_scopes = 5;
 }
 
-message UpdateRoleResponse {}
+message UpsertRoleResponse {}

@@ -3,20 +3,20 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "management";
 
-export interface RemoveRoleRequest {
+export interface DeleteRoleRequest {
   id: string;
   tenantId: string;
 }
 
-export interface RemoveRoleResponse {
+export interface DeleteRoleResponse {
 }
 
-function createBaseRemoveRoleRequest(): RemoveRoleRequest {
+function createBaseDeleteRoleRequest(): DeleteRoleRequest {
   return { id: "", tenantId: "" };
 }
 
-export const RemoveRoleRequest = {
-  encode(message: RemoveRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const DeleteRoleRequest = {
+  encode(message: DeleteRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -26,10 +26,10 @@ export const RemoveRoleRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): RemoveRoleRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteRoleRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseRemoveRoleRequest();
+    const message = createBaseDeleteRoleRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -47,41 +47,41 @@ export const RemoveRoleRequest = {
     return message;
   },
 
-  fromJSON(object: any): RemoveRoleRequest {
+  fromJSON(object: any): DeleteRoleRequest {
     return {
       id: isSet(object.id) ? String(object.id) : "",
       tenantId: isSet(object.tenantId) ? String(object.tenantId) : "",
     };
   },
 
-  toJSON(message: RemoveRoleRequest): unknown {
+  toJSON(message: DeleteRoleRequest): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     message.tenantId !== undefined && (obj.tenantId = message.tenantId);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RemoveRoleRequest>, I>>(object: I): RemoveRoleRequest {
-    const message = createBaseRemoveRoleRequest();
+  fromPartial<I extends Exact<DeepPartial<DeleteRoleRequest>, I>>(object: I): DeleteRoleRequest {
+    const message = createBaseDeleteRoleRequest();
     message.id = object.id ?? "";
     message.tenantId = object.tenantId ?? "";
     return message;
   },
 };
 
-function createBaseRemoveRoleResponse(): RemoveRoleResponse {
+function createBaseDeleteRoleResponse(): DeleteRoleResponse {
   return {};
 }
 
-export const RemoveRoleResponse = {
-  encode(_: RemoveRoleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const DeleteRoleResponse = {
+  encode(_: DeleteRoleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): RemoveRoleResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteRoleResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseRemoveRoleResponse();
+    const message = createBaseDeleteRoleResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -93,17 +93,17 @@ export const RemoveRoleResponse = {
     return message;
   },
 
-  fromJSON(_: any): RemoveRoleResponse {
+  fromJSON(_: any): DeleteRoleResponse {
     return {};
   },
 
-  toJSON(_: RemoveRoleResponse): unknown {
+  toJSON(_: DeleteRoleResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RemoveRoleResponse>, I>>(_: I): RemoveRoleResponse {
-    const message = createBaseRemoveRoleResponse();
+  fromPartial<I extends Exact<DeepPartial<DeleteRoleResponse>, I>>(_: I): DeleteRoleResponse {
+    const message = createBaseDeleteRoleResponse();
     return message;
   },
 };
