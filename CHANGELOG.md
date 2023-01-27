@@ -1,3 +1,7 @@
+# v0.4.0
+
+- (bc) Remove `displayName` and `description` from role
+
 # v0.3.3
 
 - (bug) Fix role api functions

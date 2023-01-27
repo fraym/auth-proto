@@ -5,9 +5,7 @@ import "management/role_scope.proto";
 message UpsertRoleRequest {
 	string tenant_id = 1;
 	string id = 2;
-	string display_name = 3;
-	string description = 4;
-	repeated RoleScope allowed_scopes = 5;
+	repeated RoleScope allowed_scopes = 3;
 }
 
 message UpsertRoleResponse {}

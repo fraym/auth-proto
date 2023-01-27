@@ -14,8 +14,6 @@ export interface GetRolesResponse {
 
 export interface Role {
   id: string;
-  displayName: string;
-  description: string;
   allowedScopes: RoleScope[];
 }
 
@@ -118,7 +116,7 @@ export const GetRolesResponse = {
 };
 
 function createBaseRole(): Role {
-  return { id: "", displayName: "", description: "", allowedScopes: [] };
+  return { id: "", allowedScopes: [] };
 }
 
 export const Role = {
@@ -126,14 +124,8 @@ export const Role = {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
-    if (message.displayName !== "") {
-      writer.uint32(18).string(message.displayName);
-    }
-    if (message.description !== "") {
-      writer.uint32(26).string(message.description);
-    }
     for (const v of message.allowedScopes) {
-      RoleScope.encode(v!, writer.uint32(34).fork()).ldelim();
+      RoleScope.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -149,12 +141,6 @@ export const Role = {
           message.id = reader.string();
           break;
         case 2:
-          message.displayName = reader.string();
-          break;
-        case 3:
-          message.description = reader.string();
-          break;
-        case 4:
           message.allowedScopes.push(RoleScope.decode(reader, reader.uint32()));
           break;
         default:
@@ -168,8 +154,6 @@ export const Role = {
   fromJSON(object: any): Role {
     return {
       id: isSet(object.id) ? String(object.id) : "",
-      displayName: isSet(object.displayName) ? String(object.displayName) : "",
-      description: isSet(object.description) ? String(object.description) : "",
       allowedScopes: Array.isArray(object?.allowedScopes)
         ? object.allowedScopes.map((e: any) => RoleScope.fromJSON(e))
         : [],
@@ -179,8 +163,6 @@ export const Role = {
   toJSON(message: Role): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
-    message.displayName !== undefined && (obj.displayName = message.displayName);
-    message.description !== undefined && (obj.description = message.description);
     if (message.allowedScopes) {
       obj.allowedScopes = message.allowedScopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
     } else {
@@ -192,8 +174,6 @@ export const Role = {
   fromPartial<I extends Exact<DeepPartial<Role>, I>>(object: I): Role {
     const message = createBaseRole();
     message.id = object.id ?? "";
-    message.displayName = object.displayName ?? "";
-    message.description = object.description ?? "";
     message.allowedScopes = object.allowedScopes?.map((e) => RoleScope.fromPartial(e)) || [];
     return message;
   },

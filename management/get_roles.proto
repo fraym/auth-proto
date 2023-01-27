@@ -13,7 +13,5 @@ message GetRolesResponse {
 
 message Role {
 	string id = 1;
-	string display_name = 2;
-	string description = 3;
-	repeated RoleScope allowed_scopes = 4;
+	repeated RoleScope allowed_scopes = 2;
 }
