@@ -10,8 +10,7 @@ export interface UpdateUserRequest {
   login: string;
   email: string;
   displayName: string;
-  oldPassword: string;
-  newPassword: string;
+  password: string;
   assignedRoleIds: string[];
   active: boolean;
   blockedUntil: number;
@@ -27,8 +26,7 @@ function createBaseUpdateUserRequest(): UpdateUserRequest {
     login: "",
     email: "",
     displayName: "",
-    oldPassword: "",
-    newPassword: "",
+    password: "",
     assignedRoleIds: [],
     active: false,
     blockedUntil: 0,
@@ -52,20 +50,17 @@ export const UpdateUserRequest = {
     if (message.displayName !== "") {
       writer.uint32(42).string(message.displayName);
     }
-    if (message.oldPassword !== "") {
-      writer.uint32(50).string(message.oldPassword);
-    }
-    if (message.newPassword !== "") {
-      writer.uint32(58).string(message.newPassword);
+    if (message.password !== "") {
+      writer.uint32(50).string(message.password);
     }
     for (const v of message.assignedRoleIds) {
-      writer.uint32(66).string(v!);
+      writer.uint32(58).string(v!);
     }
     if (message.active === true) {
-      writer.uint32(72).bool(message.active);
+      writer.uint32(64).bool(message.active);
     }
     if (message.blockedUntil !== 0) {
-      writer.uint32(80).int64(message.blockedUntil);
+      writer.uint32(72).int64(message.blockedUntil);
     }
     return writer;
   },
@@ -93,18 +88,15 @@ export const UpdateUserRequest = {
           message.displayName = reader.string();
           break;
         case 6:
-          message.oldPassword = reader.string();
+          message.password = reader.string();
           break;
         case 7:
-          message.newPassword = reader.string();
-          break;
-        case 8:
           message.assignedRoleIds.push(reader.string());
           break;
-        case 9:
+        case 8:
           message.active = reader.bool();
           break;
-        case 10:
+        case 9:
           message.blockedUntil = longToNumber(reader.int64() as Long);
           break;
         default:
@@ -122,8 +114,7 @@ export const UpdateUserRequest = {
       login: isSet(object.login) ? String(object.login) : "",
       email: isSet(object.email) ? String(object.email) : "",
       displayName: isSet(object.displayName) ? String(object.displayName) : "",
-      oldPassword: isSet(object.oldPassword) ? String(object.oldPassword) : "",
-      newPassword: isSet(object.newPassword) ? String(object.newPassword) : "",
+      password: isSet(object.password) ? String(object.password) : "",
       assignedRoleIds: Array.isArray(object?.assignedRoleIds) ? object.assignedRoleIds.map((e: any) => String(e)) : [],
       active: isSet(object.active) ? Boolean(object.active) : false,
       blockedUntil: isSet(object.blockedUntil) ? Number(object.blockedUntil) : 0,
@@ -137,8 +128,7 @@ export const UpdateUserRequest = {
     message.login !== undefined && (obj.login = message.login);
     message.email !== undefined && (obj.email = message.email);
     message.displayName !== undefined && (obj.displayName = message.displayName);
-    message.oldPassword !== undefined && (obj.oldPassword = message.oldPassword);
-    message.newPassword !== undefined && (obj.newPassword = message.newPassword);
+    message.password !== undefined && (obj.password = message.password);
     if (message.assignedRoleIds) {
       obj.assignedRoleIds = message.assignedRoleIds.map((e) => e);
     } else {
@@ -156,8 +146,7 @@ export const UpdateUserRequest = {
     message.login = object.login ?? "";
     message.email = object.email ?? "";
     message.displayName = object.displayName ?? "";
-    message.oldPassword = object.oldPassword ?? "";
-    message.newPassword = object.newPassword ?? "";
+    message.password = object.password ?? "";
     message.assignedRoleIds = object.assignedRoleIds?.map((e) => e) || [];
     message.active = object.active ?? false;
     message.blockedUntil = object.blockedUntil ?? 0;

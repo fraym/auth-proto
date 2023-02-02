@@ -1,3 +1,7 @@
+# v0.5.1
+
+- (bug) Do not require the old password to update a user
+
 # v0.5.0
 
 - (feature) Add user apis

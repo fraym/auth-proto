@@ -7,11 +7,10 @@ message UpdateUserRequest {
 	string login = 3;
 	string email = 4;
 	string display_name = 5;
-	string old_password = 6;
-	string new_password = 7;
-	repeated string assigned_role_ids = 8;
-	bool active = 9;
-	int64 blocked_until = 10;
+	string password = 6;
+	repeated string assigned_role_ids = 7;
+	bool active = 8;
+	int64 blocked_until = 9;
 }
 
 message UpdateUserResponse {}
