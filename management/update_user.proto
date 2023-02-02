@@ -1,0 +1,17 @@
+syntax = "proto3";
+package management;
+
+message UpdateUserRequest {
+	string tenant_id = 1;
+	string id = 2;
+	string login = 3;
+	string email = 4;
+	string display_name = 5;
+	string old_password = 6;
+	string new_password = 7;
+	repeated string assigned_role_ids = 8;
+	bool active = 9;
+	int64 blocked_until = 10;
+}
+
+message UpdateUserResponse {}

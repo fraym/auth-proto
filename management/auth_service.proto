@@ -6,6 +6,10 @@ import "management/get_roles.proto";
 import "management/create_scope.proto";
 import "management/delete_scope.proto";
 import "management/get_scopes.proto";
+import "management/create_user.proto";
+import "management/update_user.proto";
+import "management/delete_user.proto";
+import "management/get_users.proto";
   
 service AuthService {
 	rpc UpsertRole(UpsertRoleRequest) returns (UpsertRoleResponse);
@@ -15,4 +19,9 @@ service AuthService {
 	rpc CreateScope(CreateScopeRequest) returns (CreateScopeResponse);
 	rpc DeleteScope(DeleteScopeRequest) returns (DeleteScopeResponse);
 	rpc GetScopes(GetScopesRequest) returns (GetScopesResponse);
+
+	rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+	rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+	rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+	rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
 }

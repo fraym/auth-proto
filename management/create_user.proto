@@ -1,0 +1,18 @@
+syntax = "proto3";
+package management;
+
+message CreateUserRequest {
+	string tenant_id = 1;
+	string login = 2;
+	string email = 3;
+	string display_name = 4;
+	string password = 5;
+	repeated string assigned_role_ids = 6;
+	bool active = 7;
+	int64 blocked_until = 8;
+}
+
+message CreateUserResponse {
+	string id = 1;
+	string set_initial_password_token= 2;
+}

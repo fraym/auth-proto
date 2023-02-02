@@ -1,3 +1,7 @@
+# v0.5.0
+
+- (feature) Add user apis
+
 # v0.4.0
 
 - (bc) Remove `displayName` and `description` from role

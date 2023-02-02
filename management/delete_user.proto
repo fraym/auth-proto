@@ -1,0 +1,9 @@
+syntax = "proto3";
+package management;
+
+message DeleteUserRequest {
+	string tenant_id = 1;
+	string id = 2;
+}
+
+message DeleteUserResponse {}
