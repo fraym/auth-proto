@@ -11,6 +11,7 @@ export interface UpsertRoleRequest {
 }
 
 export interface UpsertRoleResponse {
+  id: string;
 }
 
 function createBaseUpsertRoleRequest(): UpsertRoleRequest {
@@ -87,11 +88,14 @@ export const UpsertRoleRequest = {
 };
 
 function createBaseUpsertRoleResponse(): UpsertRoleResponse {
-  return {};
+  return { id: "" };
 }
 
 export const UpsertRoleResponse = {
-  encode(_: UpsertRoleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: UpsertRoleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== "") {
+      writer.uint32(10).string(message.id);
+    }
     return writer;
   },
 
@@ -102,6 +106,9 @@ export const UpsertRoleResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.id = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -110,17 +117,19 @@ export const UpsertRoleResponse = {
     return message;
   },
 
-  fromJSON(_: any): UpsertRoleResponse {
-    return {};
+  fromJSON(object: any): UpsertRoleResponse {
+    return { id: isSet(object.id) ? String(object.id) : "" };
   },
 
-  toJSON(_: UpsertRoleResponse): unknown {
+  toJSON(message: UpsertRoleResponse): unknown {
     const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<UpsertRoleResponse>, I>>(_: I): UpsertRoleResponse {
+  fromPartial<I extends Exact<DeepPartial<UpsertRoleResponse>, I>>(object: I): UpsertRoleResponse {
     const message = createBaseUpsertRoleResponse();
+    message.id = object.id ?? "";
     return message;
   },
 };

@@ -1,3 +1,7 @@
+# v0.6.0
+
+- (feature) Return roleId in `UpsertRoleResponse`
+
 # v0.5.1
 
 - (bug) Do not require the old password to update a user

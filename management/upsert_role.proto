@@ -8,4 +8,6 @@ message UpsertRoleRequest {
 	repeated RoleScope allowed_scopes = 3;
 }
 
-message UpsertRoleResponse {}
+message UpsertRoleResponse {
+	string id = 1;
+}
