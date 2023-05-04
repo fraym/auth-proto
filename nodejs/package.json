@@ -1,7 +1,7 @@
 {
     "name": "@fraym/auth-proto",
     "version": "0.6.0",
-    "license": "UNLICENSED",
+    "license": "MIT",
     "homepage": "https://github.com/fraym/auth-proto",
     "repository": {
         "type": "git",
