@@ -2,8 +2,8 @@
 import {
   CallOptions,
   ChannelCredentials,
-  ChannelOptions,
   Client,
+  ClientOptions,
   ClientUnaryCall,
   handleUnaryCall,
   makeGenericClientConstructor,
@@ -11,14 +11,21 @@ import {
   ServiceError,
   UntypedServiceImplementation,
 } from "@grpc/grpc-js";
-import { CreateScopeRequest, CreateScopeResponse } from "./create_scope";
 import { CreateUserRequest, CreateUserResponse } from "./create_user";
 import { DeleteRoleRequest, DeleteRoleResponse } from "./delete_role";
-import { DeleteScopeRequest, DeleteScopeResponse } from "./delete_scope";
 import { DeleteUserRequest, DeleteUserResponse } from "./delete_user";
 import { GetRolesRequest, GetRolesResponse } from "./get_roles";
-import { GetScopesRequest, GetScopesResponse } from "./get_scopes";
 import { GetUsersRequest, GetUsersResponse } from "./get_users";
+import {
+  FinishMigrationRequest,
+  FinishMigrationResponse,
+  GetMigrationStatusRequest,
+  GetMigrationStatusResponse,
+  RegisterMigrationRequest,
+  RegisterMigrationResponse,
+  RollbackMigrationRequest,
+  RollbackMigrationResponse,
+} from "./migration";
 import { UpdateUserRequest, UpdateUserResponse } from "./update_user";
 import { UpsertRoleRequest, UpsertRoleResponse } from "./upsert_role";
 
@@ -53,32 +60,45 @@ export const AuthServiceService = {
     responseSerialize: (value: GetRolesResponse) => Buffer.from(GetRolesResponse.encode(value).finish()),
     responseDeserialize: (value: Buffer) => GetRolesResponse.decode(value),
   },
-  createScope: {
-    path: "/management.AuthService/CreateScope",
+  registerMigration: {
+    path: "/management.AuthService/RegisterMigration",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: CreateScopeRequest) => Buffer.from(CreateScopeRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => CreateScopeRequest.decode(value),
-    responseSerialize: (value: CreateScopeResponse) => Buffer.from(CreateScopeResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => CreateScopeResponse.decode(value),
+    requestSerialize: (value: RegisterMigrationRequest) => Buffer.from(RegisterMigrationRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => RegisterMigrationRequest.decode(value),
+    responseSerialize: (value: RegisterMigrationResponse) =>
+      Buffer.from(RegisterMigrationResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => RegisterMigrationResponse.decode(value),
   },
-  deleteScope: {
-    path: "/management.AuthService/DeleteScope",
+  finishMigration: {
+    path: "/management.AuthService/FinishMigration",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: DeleteScopeRequest) => Buffer.from(DeleteScopeRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => DeleteScopeRequest.decode(value),
-    responseSerialize: (value: DeleteScopeResponse) => Buffer.from(DeleteScopeResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => DeleteScopeResponse.decode(value),
+    requestSerialize: (value: FinishMigrationRequest) => Buffer.from(FinishMigrationRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => FinishMigrationRequest.decode(value),
+    responseSerialize: (value: FinishMigrationResponse) => Buffer.from(FinishMigrationResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => FinishMigrationResponse.decode(value),
   },
-  getScopes: {
-    path: "/management.AuthService/GetScopes",
+  rollbackMigration: {
+    path: "/management.AuthService/RollbackMigration",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: GetScopesRequest) => Buffer.from(GetScopesRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => GetScopesRequest.decode(value),
-    responseSerialize: (value: GetScopesResponse) => Buffer.from(GetScopesResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => GetScopesResponse.decode(value),
+    requestSerialize: (value: RollbackMigrationRequest) => Buffer.from(RollbackMigrationRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => RollbackMigrationRequest.decode(value),
+    responseSerialize: (value: RollbackMigrationResponse) =>
+      Buffer.from(RollbackMigrationResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => RollbackMigrationResponse.decode(value),
+  },
+  getMigrationStatus: {
+    path: "/management.AuthService/GetMigrationStatus",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: GetMigrationStatusRequest) =>
+      Buffer.from(GetMigrationStatusRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => GetMigrationStatusRequest.decode(value),
+    responseSerialize: (value: GetMigrationStatusResponse) =>
+      Buffer.from(GetMigrationStatusResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => GetMigrationStatusResponse.decode(value),
   },
   createUser: {
     path: "/management.AuthService/CreateUser",
@@ -122,9 +142,10 @@ export interface AuthServiceServer extends UntypedServiceImplementation {
   upsertRole: handleUnaryCall<UpsertRoleRequest, UpsertRoleResponse>;
   deleteRole: handleUnaryCall<DeleteRoleRequest, DeleteRoleResponse>;
   getRoles: handleUnaryCall<GetRolesRequest, GetRolesResponse>;
-  createScope: handleUnaryCall<CreateScopeRequest, CreateScopeResponse>;
-  deleteScope: handleUnaryCall<DeleteScopeRequest, DeleteScopeResponse>;
-  getScopes: handleUnaryCall<GetScopesRequest, GetScopesResponse>;
+  registerMigration: handleUnaryCall<RegisterMigrationRequest, RegisterMigrationResponse>;
+  finishMigration: handleUnaryCall<FinishMigrationRequest, FinishMigrationResponse>;
+  rollbackMigration: handleUnaryCall<RollbackMigrationRequest, RollbackMigrationResponse>;
+  getMigrationStatus: handleUnaryCall<GetMigrationStatusRequest, GetMigrationStatusResponse>;
   createUser: handleUnaryCall<CreateUserRequest, CreateUserResponse>;
   updateUser: handleUnaryCall<UpdateUserRequest, UpdateUserResponse>;
   deleteUser: handleUnaryCall<DeleteUserRequest, DeleteUserResponse>;
@@ -177,50 +198,65 @@ export interface AuthServiceClient extends Client {
     options: Partial<CallOptions>,
     callback: (error: ServiceError | null, response: GetRolesResponse) => void,
   ): ClientUnaryCall;
-  createScope(
-    request: CreateScopeRequest,
-    callback: (error: ServiceError | null, response: CreateScopeResponse) => void,
+  registerMigration(
+    request: RegisterMigrationRequest,
+    callback: (error: ServiceError | null, response: RegisterMigrationResponse) => void,
   ): ClientUnaryCall;
-  createScope(
-    request: CreateScopeRequest,
+  registerMigration(
+    request: RegisterMigrationRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: CreateScopeResponse) => void,
+    callback: (error: ServiceError | null, response: RegisterMigrationResponse) => void,
   ): ClientUnaryCall;
-  createScope(
-    request: CreateScopeRequest,
-    metadata: Metadata,
-    options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: CreateScopeResponse) => void,
-  ): ClientUnaryCall;
-  deleteScope(
-    request: DeleteScopeRequest,
-    callback: (error: ServiceError | null, response: DeleteScopeResponse) => void,
-  ): ClientUnaryCall;
-  deleteScope(
-    request: DeleteScopeRequest,
-    metadata: Metadata,
-    callback: (error: ServiceError | null, response: DeleteScopeResponse) => void,
-  ): ClientUnaryCall;
-  deleteScope(
-    request: DeleteScopeRequest,
+  registerMigration(
+    request: RegisterMigrationRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: DeleteScopeResponse) => void,
+    callback: (error: ServiceError | null, response: RegisterMigrationResponse) => void,
   ): ClientUnaryCall;
-  getScopes(
-    request: GetScopesRequest,
-    callback: (error: ServiceError | null, response: GetScopesResponse) => void,
+  finishMigration(
+    request: FinishMigrationRequest,
+    callback: (error: ServiceError | null, response: FinishMigrationResponse) => void,
   ): ClientUnaryCall;
-  getScopes(
-    request: GetScopesRequest,
+  finishMigration(
+    request: FinishMigrationRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: GetScopesResponse) => void,
+    callback: (error: ServiceError | null, response: FinishMigrationResponse) => void,
   ): ClientUnaryCall;
-  getScopes(
-    request: GetScopesRequest,
+  finishMigration(
+    request: FinishMigrationRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: GetScopesResponse) => void,
+    callback: (error: ServiceError | null, response: FinishMigrationResponse) => void,
+  ): ClientUnaryCall;
+  rollbackMigration(
+    request: RollbackMigrationRequest,
+    callback: (error: ServiceError | null, response: RollbackMigrationResponse) => void,
+  ): ClientUnaryCall;
+  rollbackMigration(
+    request: RollbackMigrationRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: RollbackMigrationResponse) => void,
+  ): ClientUnaryCall;
+  rollbackMigration(
+    request: RollbackMigrationRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: RollbackMigrationResponse) => void,
+  ): ClientUnaryCall;
+  getMigrationStatus(
+    request: GetMigrationStatusRequest,
+    callback: (error: ServiceError | null, response: GetMigrationStatusResponse) => void,
+  ): ClientUnaryCall;
+  getMigrationStatus(
+    request: GetMigrationStatusRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetMigrationStatusResponse) => void,
+  ): ClientUnaryCall;
+  getMigrationStatus(
+    request: GetMigrationStatusRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetMigrationStatusResponse) => void,
   ): ClientUnaryCall;
   createUser(
     request: CreateUserRequest,
@@ -288,6 +324,6 @@ export const AuthServiceClient = makeGenericClientConstructor(
   AuthServiceService,
   "management.AuthService",
 ) as unknown as {
-  new (address: string, credentials: ChannelCredentials, options?: Partial<ChannelOptions>): AuthServiceClient;
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): AuthServiceClient;
   service: typeof AuthServiceService;
 };

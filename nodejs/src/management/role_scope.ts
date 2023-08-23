@@ -24,22 +24,31 @@ export const RoleScope = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RoleScope {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRoleScope();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.clientId = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag !== 18) {
+            break;
+          }
+
           message.scopeName = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -53,11 +62,18 @@ export const RoleScope = {
 
   toJSON(message: RoleScope): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.scopeName !== undefined && (obj.scopeName = message.scopeName);
+    if (message.clientId !== "") {
+      obj.clientId = message.clientId;
+    }
+    if (message.scopeName !== "") {
+      obj.scopeName = message.scopeName;
+    }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<RoleScope>, I>>(base?: I): RoleScope {
+    return RoleScope.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<RoleScope>, I>>(object: I): RoleScope {
     const message = createBaseRoleScope();
     message.clientId = object.clientId ?? "";

@@ -37,19 +37,24 @@ export const GetUsersRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetUsersRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetUsersRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.tenantId = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -60,10 +65,15 @@ export const GetUsersRequest = {
 
   toJSON(message: GetUsersRequest): unknown {
     const obj: any = {};
-    message.tenantId !== undefined && (obj.tenantId = message.tenantId);
+    if (message.tenantId !== "") {
+      obj.tenantId = message.tenantId;
+    }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<GetUsersRequest>, I>>(base?: I): GetUsersRequest {
+    return GetUsersRequest.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<GetUsersRequest>, I>>(object: I): GetUsersRequest {
     const message = createBaseGetUsersRequest();
     message.tenantId = object.tenantId ?? "";
@@ -84,19 +94,24 @@ export const GetUsersResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetUsersResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetUsersResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.users.push(User.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -107,14 +122,15 @@ export const GetUsersResponse = {
 
   toJSON(message: GetUsersResponse): unknown {
     const obj: any = {};
-    if (message.users) {
-      obj.users = message.users.map((e) => e ? User.toJSON(e) : undefined);
-    } else {
-      obj.users = [];
+    if (message.users?.length) {
+      obj.users = message.users.map((e) => User.toJSON(e));
     }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<GetUsersResponse>, I>>(base?: I): GetUsersResponse {
+    return GetUsersResponse.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<GetUsersResponse>, I>>(object: I): GetUsersResponse {
     const message = createBaseGetUsersResponse();
     message.users = object.users?.map((e) => User.fromPartial(e)) || [];
@@ -169,43 +185,80 @@ export const User = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): User {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUser();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.id = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag !== 18) {
+            break;
+          }
+
           message.login = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag !== 26) {
+            break;
+          }
+
           message.email = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag !== 34) {
+            break;
+          }
+
           message.displayName = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag !== 42) {
+            break;
+          }
+
           message.assignedRoleIds.push(reader.string());
-          break;
+          continue;
         case 6:
+          if (tag !== 48) {
+            break;
+          }
+
           message.active = reader.bool();
-          break;
+          continue;
         case 7:
+          if (tag !== 56) {
+            break;
+          }
+
           message.failedAttempts = longToNumber(reader.int64() as Long);
-          break;
+          continue;
         case 8:
+          if (tag !== 64) {
+            break;
+          }
+
           message.lastAttempt = longToNumber(reader.int64() as Long);
-          break;
+          continue;
         case 9:
+          if (tag !== 72) {
+            break;
+          }
+
           message.blockedUntil = longToNumber(reader.int64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -226,22 +279,39 @@ export const User = {
 
   toJSON(message: User): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
-    message.login !== undefined && (obj.login = message.login);
-    message.email !== undefined && (obj.email = message.email);
-    message.displayName !== undefined && (obj.displayName = message.displayName);
-    if (message.assignedRoleIds) {
-      obj.assignedRoleIds = message.assignedRoleIds.map((e) => e);
-    } else {
-      obj.assignedRoleIds = [];
+    if (message.id !== "") {
+      obj.id = message.id;
     }
-    message.active !== undefined && (obj.active = message.active);
-    message.failedAttempts !== undefined && (obj.failedAttempts = Math.round(message.failedAttempts));
-    message.lastAttempt !== undefined && (obj.lastAttempt = Math.round(message.lastAttempt));
-    message.blockedUntil !== undefined && (obj.blockedUntil = Math.round(message.blockedUntil));
+    if (message.login !== "") {
+      obj.login = message.login;
+    }
+    if (message.email !== "") {
+      obj.email = message.email;
+    }
+    if (message.displayName !== "") {
+      obj.displayName = message.displayName;
+    }
+    if (message.assignedRoleIds?.length) {
+      obj.assignedRoleIds = message.assignedRoleIds;
+    }
+    if (message.active === true) {
+      obj.active = message.active;
+    }
+    if (message.failedAttempts !== 0) {
+      obj.failedAttempts = Math.round(message.failedAttempts);
+    }
+    if (message.lastAttempt !== 0) {
+      obj.lastAttempt = Math.round(message.lastAttempt);
+    }
+    if (message.blockedUntil !== 0) {
+      obj.blockedUntil = Math.round(message.blockedUntil);
+    }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<User>, I>>(base?: I): User {
+    return User.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<User>, I>>(object: I): User {
     const message = createBaseUser();
     message.id = object.id ?? "";
@@ -257,10 +327,10 @@ export const User = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }
@@ -290,7 +360,7 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 
 function longToNumber(long: Long): number {
   if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
   }
   return long.toNumber();
 }

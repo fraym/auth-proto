@@ -27,22 +27,31 @@ export const DeleteRoleRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DeleteRoleRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteRoleRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.id = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag !== 18) {
+            break;
+          }
+
           message.tenantId = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -56,11 +65,18 @@ export const DeleteRoleRequest = {
 
   toJSON(message: DeleteRoleRequest): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
-    message.tenantId !== undefined && (obj.tenantId = message.tenantId);
+    if (message.id !== "") {
+      obj.id = message.id;
+    }
+    if (message.tenantId !== "") {
+      obj.tenantId = message.tenantId;
+    }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<DeleteRoleRequest>, I>>(base?: I): DeleteRoleRequest {
+    return DeleteRoleRequest.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<DeleteRoleRequest>, I>>(object: I): DeleteRoleRequest {
     const message = createBaseDeleteRoleRequest();
     message.id = object.id ?? "";
@@ -79,16 +95,17 @@ export const DeleteRoleResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DeleteRoleResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteRoleResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -102,6 +119,9 @@ export const DeleteRoleResponse = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<DeleteRoleResponse>, I>>(base?: I): DeleteRoleResponse {
+    return DeleteRoleResponse.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<DeleteRoleResponse>, I>>(_: I): DeleteRoleResponse {
     const message = createBaseDeleteRoleResponse();
     return message;

@@ -33,25 +33,38 @@ export const UpsertRoleRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): UpsertRoleRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUpsertRoleRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.tenantId = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag !== 18) {
+            break;
+          }
+
           message.id = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag !== 26) {
+            break;
+          }
+
           message.allowedScopes.push(RoleScope.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -68,16 +81,21 @@ export const UpsertRoleRequest = {
 
   toJSON(message: UpsertRoleRequest): unknown {
     const obj: any = {};
-    message.tenantId !== undefined && (obj.tenantId = message.tenantId);
-    message.id !== undefined && (obj.id = message.id);
-    if (message.allowedScopes) {
-      obj.allowedScopes = message.allowedScopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
-    } else {
-      obj.allowedScopes = [];
+    if (message.tenantId !== "") {
+      obj.tenantId = message.tenantId;
+    }
+    if (message.id !== "") {
+      obj.id = message.id;
+    }
+    if (message.allowedScopes?.length) {
+      obj.allowedScopes = message.allowedScopes.map((e) => RoleScope.toJSON(e));
     }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<UpsertRoleRequest>, I>>(base?: I): UpsertRoleRequest {
+    return UpsertRoleRequest.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<UpsertRoleRequest>, I>>(object: I): UpsertRoleRequest {
     const message = createBaseUpsertRoleRequest();
     message.tenantId = object.tenantId ?? "";
@@ -100,19 +118,24 @@ export const UpsertRoleResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): UpsertRoleResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUpsertRoleResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.id = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -123,10 +146,15 @@ export const UpsertRoleResponse = {
 
   toJSON(message: UpsertRoleResponse): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
+    if (message.id !== "") {
+      obj.id = message.id;
+    }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<UpsertRoleResponse>, I>>(base?: I): UpsertRoleResponse {
+    return UpsertRoleResponse.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<UpsertRoleResponse>, I>>(object: I): UpsertRoleResponse {
     const message = createBaseUpsertRoleResponse();
     message.id = object.id ?? "";

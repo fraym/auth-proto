@@ -66,43 +66,80 @@ export const UpdateUserRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): UpdateUserRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUpdateUserRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.tenantId = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag !== 18) {
+            break;
+          }
+
           message.id = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag !== 26) {
+            break;
+          }
+
           message.login = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag !== 34) {
+            break;
+          }
+
           message.email = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag !== 42) {
+            break;
+          }
+
           message.displayName = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag !== 50) {
+            break;
+          }
+
           message.password = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag !== 58) {
+            break;
+          }
+
           message.assignedRoleIds.push(reader.string());
-          break;
+          continue;
         case 8:
+          if (tag !== 64) {
+            break;
+          }
+
           message.active = reader.bool();
-          break;
+          continue;
         case 9:
+          if (tag !== 72) {
+            break;
+          }
+
           message.blockedUntil = longToNumber(reader.int64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -123,22 +160,39 @@ export const UpdateUserRequest = {
 
   toJSON(message: UpdateUserRequest): unknown {
     const obj: any = {};
-    message.tenantId !== undefined && (obj.tenantId = message.tenantId);
-    message.id !== undefined && (obj.id = message.id);
-    message.login !== undefined && (obj.login = message.login);
-    message.email !== undefined && (obj.email = message.email);
-    message.displayName !== undefined && (obj.displayName = message.displayName);
-    message.password !== undefined && (obj.password = message.password);
-    if (message.assignedRoleIds) {
-      obj.assignedRoleIds = message.assignedRoleIds.map((e) => e);
-    } else {
-      obj.assignedRoleIds = [];
+    if (message.tenantId !== "") {
+      obj.tenantId = message.tenantId;
     }
-    message.active !== undefined && (obj.active = message.active);
-    message.blockedUntil !== undefined && (obj.blockedUntil = Math.round(message.blockedUntil));
+    if (message.id !== "") {
+      obj.id = message.id;
+    }
+    if (message.login !== "") {
+      obj.login = message.login;
+    }
+    if (message.email !== "") {
+      obj.email = message.email;
+    }
+    if (message.displayName !== "") {
+      obj.displayName = message.displayName;
+    }
+    if (message.password !== "") {
+      obj.password = message.password;
+    }
+    if (message.assignedRoleIds?.length) {
+      obj.assignedRoleIds = message.assignedRoleIds;
+    }
+    if (message.active === true) {
+      obj.active = message.active;
+    }
+    if (message.blockedUntil !== 0) {
+      obj.blockedUntil = Math.round(message.blockedUntil);
+    }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<UpdateUserRequest>, I>>(base?: I): UpdateUserRequest {
+    return UpdateUserRequest.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<UpdateUserRequest>, I>>(object: I): UpdateUserRequest {
     const message = createBaseUpdateUserRequest();
     message.tenantId = object.tenantId ?? "";
@@ -164,16 +218,17 @@ export const UpdateUserResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): UpdateUserResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUpdateUserResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -187,16 +242,19 @@ export const UpdateUserResponse = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<UpdateUserResponse>, I>>(base?: I): UpdateUserResponse {
+    return UpdateUserResponse.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<UpdateUserResponse>, I>>(_: I): UpdateUserResponse {
     const message = createBaseUpdateUserResponse();
     return message;
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }
@@ -226,7 +284,7 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 
 function longToNumber(long: Long): number {
   if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
   }
   return long.toNumber();
 }

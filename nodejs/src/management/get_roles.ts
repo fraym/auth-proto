@@ -30,19 +30,24 @@ export const GetRolesRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetRolesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRolesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.tenantId = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -53,10 +58,15 @@ export const GetRolesRequest = {
 
   toJSON(message: GetRolesRequest): unknown {
     const obj: any = {};
-    message.tenantId !== undefined && (obj.tenantId = message.tenantId);
+    if (message.tenantId !== "") {
+      obj.tenantId = message.tenantId;
+    }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<GetRolesRequest>, I>>(base?: I): GetRolesRequest {
+    return GetRolesRequest.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<GetRolesRequest>, I>>(object: I): GetRolesRequest {
     const message = createBaseGetRolesRequest();
     message.tenantId = object.tenantId ?? "";
@@ -77,19 +87,24 @@ export const GetRolesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetRolesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRolesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.roles.push(Role.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -100,14 +115,15 @@ export const GetRolesResponse = {
 
   toJSON(message: GetRolesResponse): unknown {
     const obj: any = {};
-    if (message.roles) {
-      obj.roles = message.roles.map((e) => e ? Role.toJSON(e) : undefined);
-    } else {
-      obj.roles = [];
+    if (message.roles?.length) {
+      obj.roles = message.roles.map((e) => Role.toJSON(e));
     }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<GetRolesResponse>, I>>(base?: I): GetRolesResponse {
+    return GetRolesResponse.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<GetRolesResponse>, I>>(object: I): GetRolesResponse {
     const message = createBaseGetRolesResponse();
     message.roles = object.roles?.map((e) => Role.fromPartial(e)) || [];
@@ -131,22 +147,31 @@ export const Role = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Role {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRole();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.id = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag !== 18) {
+            break;
+          }
+
           message.allowedScopes.push(RoleScope.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -162,15 +187,18 @@ export const Role = {
 
   toJSON(message: Role): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
-    if (message.allowedScopes) {
-      obj.allowedScopes = message.allowedScopes.map((e) => e ? RoleScope.toJSON(e) : undefined);
-    } else {
-      obj.allowedScopes = [];
+    if (message.id !== "") {
+      obj.id = message.id;
+    }
+    if (message.allowedScopes?.length) {
+      obj.allowedScopes = message.allowedScopes.map((e) => RoleScope.toJSON(e));
     }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<Role>, I>>(base?: I): Role {
+    return Role.fromPartial(base ?? ({} as any));
+  },
   fromPartial<I extends Exact<DeepPartial<Role>, I>>(object: I): Role {
     const message = createBaseRole();
     message.id = object.id ?? "";
