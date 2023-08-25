@@ -4,7 +4,6 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "management";
 
 export interface RegisterMigrationRequest {
-  id: string;
   scopes: string[];
 }
 
@@ -12,38 +11,30 @@ export interface RegisterMigrationResponse {
 }
 
 export interface FinishMigrationRequest {
-  id: string;
 }
 
 export interface FinishMigrationResponse {
 }
 
 export interface RollbackMigrationRequest {
-  id: string;
 }
 
 export interface RollbackMigrationResponse {
 }
 
 export interface GetMigrationStatusRequest {
-  id: string;
 }
 
 export interface GetMigrationStatusResponse {
-  registered: boolean;
-  migrating: boolean;
   done: boolean;
 }
 
 function createBaseRegisterMigrationRequest(): RegisterMigrationRequest {
-  return { id: "", scopes: [] };
+  return { scopes: [] };
 }
 
 export const RegisterMigrationRequest = {
   encode(message: RegisterMigrationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
-      writer.uint32(10).string(message.id);
-    }
     for (const v of message.scopes) {
       writer.uint32(18).string(v!);
     }
@@ -57,13 +48,6 @@ export const RegisterMigrationRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.id = reader.string();
-          continue;
         case 2:
           if (tag !== 18) {
             break;
@@ -81,17 +65,11 @@ export const RegisterMigrationRequest = {
   },
 
   fromJSON(object: any): RegisterMigrationRequest {
-    return {
-      id: isSet(object.id) ? String(object.id) : "",
-      scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => String(e)) : [],
-    };
+    return { scopes: Array.isArray(object?.scopes) ? object.scopes.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: RegisterMigrationRequest): unknown {
     const obj: any = {};
-    if (message.id !== "") {
-      obj.id = message.id;
-    }
     if (message.scopes?.length) {
       obj.scopes = message.scopes;
     }
@@ -103,7 +81,6 @@ export const RegisterMigrationRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<RegisterMigrationRequest>, I>>(object: I): RegisterMigrationRequest {
     const message = createBaseRegisterMigrationRequest();
-    message.id = object.id ?? "";
     message.scopes = object.scopes?.map((e) => e) || [];
     return message;
   },
@@ -153,14 +130,11 @@ export const RegisterMigrationResponse = {
 };
 
 function createBaseFinishMigrationRequest(): FinishMigrationRequest {
-  return { id: "" };
+  return {};
 }
 
 export const FinishMigrationRequest = {
-  encode(message: FinishMigrationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
-      writer.uint32(10).string(message.id);
-    }
+  encode(_: FinishMigrationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -171,13 +145,6 @@ export const FinishMigrationRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.id = reader.string();
-          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -187,24 +154,20 @@ export const FinishMigrationRequest = {
     return message;
   },
 
-  fromJSON(object: any): FinishMigrationRequest {
-    return { id: isSet(object.id) ? String(object.id) : "" };
+  fromJSON(_: any): FinishMigrationRequest {
+    return {};
   },
 
-  toJSON(message: FinishMigrationRequest): unknown {
+  toJSON(_: FinishMigrationRequest): unknown {
     const obj: any = {};
-    if (message.id !== "") {
-      obj.id = message.id;
-    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<FinishMigrationRequest>, I>>(base?: I): FinishMigrationRequest {
     return FinishMigrationRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<FinishMigrationRequest>, I>>(object: I): FinishMigrationRequest {
+  fromPartial<I extends Exact<DeepPartial<FinishMigrationRequest>, I>>(_: I): FinishMigrationRequest {
     const message = createBaseFinishMigrationRequest();
-    message.id = object.id ?? "";
     return message;
   },
 };
@@ -253,14 +216,11 @@ export const FinishMigrationResponse = {
 };
 
 function createBaseRollbackMigrationRequest(): RollbackMigrationRequest {
-  return { id: "" };
+  return {};
 }
 
 export const RollbackMigrationRequest = {
-  encode(message: RollbackMigrationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
-      writer.uint32(10).string(message.id);
-    }
+  encode(_: RollbackMigrationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -271,13 +231,6 @@ export const RollbackMigrationRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.id = reader.string();
-          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -287,24 +240,20 @@ export const RollbackMigrationRequest = {
     return message;
   },
 
-  fromJSON(object: any): RollbackMigrationRequest {
-    return { id: isSet(object.id) ? String(object.id) : "" };
+  fromJSON(_: any): RollbackMigrationRequest {
+    return {};
   },
 
-  toJSON(message: RollbackMigrationRequest): unknown {
+  toJSON(_: RollbackMigrationRequest): unknown {
     const obj: any = {};
-    if (message.id !== "") {
-      obj.id = message.id;
-    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<RollbackMigrationRequest>, I>>(base?: I): RollbackMigrationRequest {
     return RollbackMigrationRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<RollbackMigrationRequest>, I>>(object: I): RollbackMigrationRequest {
+  fromPartial<I extends Exact<DeepPartial<RollbackMigrationRequest>, I>>(_: I): RollbackMigrationRequest {
     const message = createBaseRollbackMigrationRequest();
-    message.id = object.id ?? "";
     return message;
   },
 };
@@ -353,14 +302,11 @@ export const RollbackMigrationResponse = {
 };
 
 function createBaseGetMigrationStatusRequest(): GetMigrationStatusRequest {
-  return { id: "" };
+  return {};
 }
 
 export const GetMigrationStatusRequest = {
-  encode(message: GetMigrationStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
-      writer.uint32(10).string(message.id);
-    }
+  encode(_: GetMigrationStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -371,13 +317,6 @@ export const GetMigrationStatusRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.id = reader.string();
-          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -387,42 +326,32 @@ export const GetMigrationStatusRequest = {
     return message;
   },
 
-  fromJSON(object: any): GetMigrationStatusRequest {
-    return { id: isSet(object.id) ? String(object.id) : "" };
+  fromJSON(_: any): GetMigrationStatusRequest {
+    return {};
   },
 
-  toJSON(message: GetMigrationStatusRequest): unknown {
+  toJSON(_: GetMigrationStatusRequest): unknown {
     const obj: any = {};
-    if (message.id !== "") {
-      obj.id = message.id;
-    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<GetMigrationStatusRequest>, I>>(base?: I): GetMigrationStatusRequest {
     return GetMigrationStatusRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetMigrationStatusRequest>, I>>(object: I): GetMigrationStatusRequest {
+  fromPartial<I extends Exact<DeepPartial<GetMigrationStatusRequest>, I>>(_: I): GetMigrationStatusRequest {
     const message = createBaseGetMigrationStatusRequest();
-    message.id = object.id ?? "";
     return message;
   },
 };
 
 function createBaseGetMigrationStatusResponse(): GetMigrationStatusResponse {
-  return { registered: false, migrating: false, done: false };
+  return { done: false };
 }
 
 export const GetMigrationStatusResponse = {
   encode(message: GetMigrationStatusResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.registered === true) {
-      writer.uint32(8).bool(message.registered);
-    }
-    if (message.migrating === true) {
-      writer.uint32(16).bool(message.migrating);
-    }
     if (message.done === true) {
-      writer.uint32(24).bool(message.done);
+      writer.uint32(8).bool(message.done);
     }
     return writer;
   },
@@ -439,20 +368,6 @@ export const GetMigrationStatusResponse = {
             break;
           }
 
-          message.registered = reader.bool();
-          continue;
-        case 2:
-          if (tag !== 16) {
-            break;
-          }
-
-          message.migrating = reader.bool();
-          continue;
-        case 3:
-          if (tag !== 24) {
-            break;
-          }
-
           message.done = reader.bool();
           continue;
       }
@@ -465,21 +380,11 @@ export const GetMigrationStatusResponse = {
   },
 
   fromJSON(object: any): GetMigrationStatusResponse {
-    return {
-      registered: isSet(object.registered) ? Boolean(object.registered) : false,
-      migrating: isSet(object.migrating) ? Boolean(object.migrating) : false,
-      done: isSet(object.done) ? Boolean(object.done) : false,
-    };
+    return { done: isSet(object.done) ? Boolean(object.done) : false };
   },
 
   toJSON(message: GetMigrationStatusResponse): unknown {
     const obj: any = {};
-    if (message.registered === true) {
-      obj.registered = message.registered;
-    }
-    if (message.migrating === true) {
-      obj.migrating = message.migrating;
-    }
     if (message.done === true) {
       obj.done = message.done;
     }
@@ -491,8 +396,6 @@ export const GetMigrationStatusResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<GetMigrationStatusResponse>, I>>(object: I): GetMigrationStatusResponse {
     const message = createBaseGetMigrationStatusResponse();
-    message.registered = object.registered ?? false;
-    message.migrating = object.migrating ?? false;
     message.done = object.done ?? false;
     return message;
   },

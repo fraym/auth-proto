@@ -2,31 +2,22 @@ syntax = "proto3";
 package management;
 
 message RegisterMigrationRequest {
-	string id = 1; 
 	repeated string scopes = 2; 
 }
 
 message RegisterMigrationResponse {}
 
-message FinishMigrationRequest {
-	string id = 1; 
-}
+message FinishMigrationRequest {}
 
 message FinishMigrationResponse {}
 
-message RollbackMigrationRequest {
-	string id = 1; 
-}
+message RollbackMigrationRequest {}
 
 message RollbackMigrationResponse {}
 
-message GetMigrationStatusRequest {
-	string id = 1; 
-}
+message GetMigrationStatusRequest {}
 
 message GetMigrationStatusResponse {
-	bool registered = 1; 
-	bool migrating = 2; 
-	bool done = 3; 
+	bool done = 1;
 }
 

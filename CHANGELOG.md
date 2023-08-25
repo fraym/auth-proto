@@ -1,3 +1,7 @@
+# v0.7.1
+
+-   (bug) Remove unneeded fields form migraiton messages
+
 # v0.7.0
 
 -   (bc) Remove `CreateScope`, `DeleteScope` and `GetScopes`
