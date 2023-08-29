@@ -1,0 +1,23 @@
+syntax = "proto3";
+package management;
+
+message AuthRegisterMigrationRequest {
+	repeated string scopes = 2; 
+}
+
+message AuthRegisterMigrationResponse {}
+
+message AuthFinishMigrationRequest {}
+
+message AuthFinishMigrationResponse {}
+
+message AuthRollbackMigrationRequest {}
+
+message AuthRollbackMigrationResponse {}
+
+message AuthGetMigrationStatusRequest {}
+
+message AuthGetMigrationStatusResponse {
+	bool done = 1;
+}
+

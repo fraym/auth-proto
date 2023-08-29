@@ -7,17 +7,17 @@ import "management/create_user.proto";
 import "management/update_user.proto";
 import "management/delete_user.proto";
 import "management/get_users.proto"; 
-import "management/auth_migration.proto";
+import "management/migration.proto";
   
 service AuthService {
 	rpc UpsertRole(UpsertRoleRequest) returns (UpsertRoleResponse);
 	rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse);
 	rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
   
-	rpc RegisterMigration(RegisterMigrationRequest) returns (RegisterMigrationResponse); 
-	rpc FinishMigration(FinishMigrationRequest) returns (FinishMigrationResponse);
-	rpc RollbackMigration(RollbackMigrationRequest) returns (RollbackMigrationResponse);
-	rpc GetMigrationStatus(GetMigrationStatusRequest) returns (GetMigrationStatusResponse);
+	rpc RegisterMigration(AuthRegisterMigrationRequest) returns (AuthRegisterMigrationResponse); 
+	rpc FinishMigration(AuthFinishMigrationRequest) returns (AuthFinishMigrationResponse);
+	rpc RollbackMigration(AuthRollbackMigrationRequest) returns (AuthRollbackMigrationResponse);
+	rpc GetMigrationStatus(AuthGetMigrationStatusRequest) returns (AuthGetMigrationStatusResponse);
 
 	rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
 	rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);

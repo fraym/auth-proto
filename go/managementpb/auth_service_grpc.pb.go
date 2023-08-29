@@ -39,10 +39,10 @@ type AuthServiceClient interface {
 	UpsertRole(ctx context.Context, in *UpsertRoleRequest, opts ...grpc.CallOption) (*UpsertRoleResponse, error)
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
 	GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesResponse, error)
-	RegisterMigration(ctx context.Context, in *RegisterMigrationRequest, opts ...grpc.CallOption) (*RegisterMigrationResponse, error)
-	FinishMigration(ctx context.Context, in *FinishMigrationRequest, opts ...grpc.CallOption) (*FinishMigrationResponse, error)
-	RollbackMigration(ctx context.Context, in *RollbackMigrationRequest, opts ...grpc.CallOption) (*RollbackMigrationResponse, error)
-	GetMigrationStatus(ctx context.Context, in *GetMigrationStatusRequest, opts ...grpc.CallOption) (*GetMigrationStatusResponse, error)
+	RegisterMigration(ctx context.Context, in *AuthRegisterMigrationRequest, opts ...grpc.CallOption) (*AuthRegisterMigrationResponse, error)
+	FinishMigration(ctx context.Context, in *AuthFinishMigrationRequest, opts ...grpc.CallOption) (*AuthFinishMigrationResponse, error)
+	RollbackMigration(ctx context.Context, in *AuthRollbackMigrationRequest, opts ...grpc.CallOption) (*AuthRollbackMigrationResponse, error)
+	GetMigrationStatus(ctx context.Context, in *AuthGetMigrationStatusRequest, opts ...grpc.CallOption) (*AuthGetMigrationStatusResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
@@ -84,8 +84,8 @@ func (c *authServiceClient) GetRoles(ctx context.Context, in *GetRolesRequest, o
 	return out, nil
 }
 
-func (c *authServiceClient) RegisterMigration(ctx context.Context, in *RegisterMigrationRequest, opts ...grpc.CallOption) (*RegisterMigrationResponse, error) {
-	out := new(RegisterMigrationResponse)
+func (c *authServiceClient) RegisterMigration(ctx context.Context, in *AuthRegisterMigrationRequest, opts ...grpc.CallOption) (*AuthRegisterMigrationResponse, error) {
+	out := new(AuthRegisterMigrationResponse)
 	err := c.cc.Invoke(ctx, AuthService_RegisterMigration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -93,8 +93,8 @@ func (c *authServiceClient) RegisterMigration(ctx context.Context, in *RegisterM
 	return out, nil
 }
 
-func (c *authServiceClient) FinishMigration(ctx context.Context, in *FinishMigrationRequest, opts ...grpc.CallOption) (*FinishMigrationResponse, error) {
-	out := new(FinishMigrationResponse)
+func (c *authServiceClient) FinishMigration(ctx context.Context, in *AuthFinishMigrationRequest, opts ...grpc.CallOption) (*AuthFinishMigrationResponse, error) {
+	out := new(AuthFinishMigrationResponse)
 	err := c.cc.Invoke(ctx, AuthService_FinishMigration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -102,8 +102,8 @@ func (c *authServiceClient) FinishMigration(ctx context.Context, in *FinishMigra
 	return out, nil
 }
 
-func (c *authServiceClient) RollbackMigration(ctx context.Context, in *RollbackMigrationRequest, opts ...grpc.CallOption) (*RollbackMigrationResponse, error) {
-	out := new(RollbackMigrationResponse)
+func (c *authServiceClient) RollbackMigration(ctx context.Context, in *AuthRollbackMigrationRequest, opts ...grpc.CallOption) (*AuthRollbackMigrationResponse, error) {
+	out := new(AuthRollbackMigrationResponse)
 	err := c.cc.Invoke(ctx, AuthService_RollbackMigration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -111,8 +111,8 @@ func (c *authServiceClient) RollbackMigration(ctx context.Context, in *RollbackM
 	return out, nil
 }
 
-func (c *authServiceClient) GetMigrationStatus(ctx context.Context, in *GetMigrationStatusRequest, opts ...grpc.CallOption) (*GetMigrationStatusResponse, error) {
-	out := new(GetMigrationStatusResponse)
+func (c *authServiceClient) GetMigrationStatus(ctx context.Context, in *AuthGetMigrationStatusRequest, opts ...grpc.CallOption) (*AuthGetMigrationStatusResponse, error) {
+	out := new(AuthGetMigrationStatusResponse)
 	err := c.cc.Invoke(ctx, AuthService_GetMigrationStatus_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -163,10 +163,10 @@ type AuthServiceServer interface {
 	UpsertRole(context.Context, *UpsertRoleRequest) (*UpsertRoleResponse, error)
 	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
 	GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error)
-	RegisterMigration(context.Context, *RegisterMigrationRequest) (*RegisterMigrationResponse, error)
-	FinishMigration(context.Context, *FinishMigrationRequest) (*FinishMigrationResponse, error)
-	RollbackMigration(context.Context, *RollbackMigrationRequest) (*RollbackMigrationResponse, error)
-	GetMigrationStatus(context.Context, *GetMigrationStatusRequest) (*GetMigrationStatusResponse, error)
+	RegisterMigration(context.Context, *AuthRegisterMigrationRequest) (*AuthRegisterMigrationResponse, error)
+	FinishMigration(context.Context, *AuthFinishMigrationRequest) (*AuthFinishMigrationResponse, error)
+	RollbackMigration(context.Context, *AuthRollbackMigrationRequest) (*AuthRollbackMigrationResponse, error)
+	GetMigrationStatus(context.Context, *AuthGetMigrationStatusRequest) (*AuthGetMigrationStatusResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
@@ -187,16 +187,16 @@ func (UnimplementedAuthServiceServer) DeleteRole(context.Context, *DeleteRoleReq
 func (UnimplementedAuthServiceServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoles not implemented")
 }
-func (UnimplementedAuthServiceServer) RegisterMigration(context.Context, *RegisterMigrationRequest) (*RegisterMigrationResponse, error) {
+func (UnimplementedAuthServiceServer) RegisterMigration(context.Context, *AuthRegisterMigrationRequest) (*AuthRegisterMigrationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterMigration not implemented")
 }
-func (UnimplementedAuthServiceServer) FinishMigration(context.Context, *FinishMigrationRequest) (*FinishMigrationResponse, error) {
+func (UnimplementedAuthServiceServer) FinishMigration(context.Context, *AuthFinishMigrationRequest) (*AuthFinishMigrationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishMigration not implemented")
 }
-func (UnimplementedAuthServiceServer) RollbackMigration(context.Context, *RollbackMigrationRequest) (*RollbackMigrationResponse, error) {
+func (UnimplementedAuthServiceServer) RollbackMigration(context.Context, *AuthRollbackMigrationRequest) (*AuthRollbackMigrationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RollbackMigration not implemented")
 }
-func (UnimplementedAuthServiceServer) GetMigrationStatus(context.Context, *GetMigrationStatusRequest) (*GetMigrationStatusResponse, error) {
+func (UnimplementedAuthServiceServer) GetMigrationStatus(context.Context, *AuthGetMigrationStatusRequest) (*AuthGetMigrationStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMigrationStatus not implemented")
 }
 func (UnimplementedAuthServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
@@ -279,7 +279,7 @@ func _AuthService_GetRoles_Handler(srv interface{}, ctx context.Context, dec fun
 }
 
 func _AuthService_RegisterMigration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterMigrationRequest)
+	in := new(AuthRegisterMigrationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -291,13 +291,13 @@ func _AuthService_RegisterMigration_Handler(srv interface{}, ctx context.Context
 		FullMethod: AuthService_RegisterMigration_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).RegisterMigration(ctx, req.(*RegisterMigrationRequest))
+		return srv.(AuthServiceServer).RegisterMigration(ctx, req.(*AuthRegisterMigrationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AuthService_FinishMigration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FinishMigrationRequest)
+	in := new(AuthFinishMigrationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -309,13 +309,13 @@ func _AuthService_FinishMigration_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: AuthService_FinishMigration_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).FinishMigration(ctx, req.(*FinishMigrationRequest))
+		return srv.(AuthServiceServer).FinishMigration(ctx, req.(*AuthFinishMigrationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AuthService_RollbackMigration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RollbackMigrationRequest)
+	in := new(AuthRollbackMigrationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -327,13 +327,13 @@ func _AuthService_RollbackMigration_Handler(srv interface{}, ctx context.Context
 		FullMethod: AuthService_RollbackMigration_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).RollbackMigration(ctx, req.(*RollbackMigrationRequest))
+		return srv.(AuthServiceServer).RollbackMigration(ctx, req.(*AuthRollbackMigrationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AuthService_GetMigrationStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetMigrationStatusRequest)
+	in := new(AuthGetMigrationStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -345,7 +345,7 @@ func _AuthService_GetMigrationStatus_Handler(srv interface{}, ctx context.Contex
 		FullMethod: AuthService_GetMigrationStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetMigrationStatus(ctx, req.(*GetMigrationStatusRequest))
+		return srv.(AuthServiceServer).GetMigrationStatus(ctx, req.(*AuthGetMigrationStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

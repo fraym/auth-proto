@@ -17,12 +17,12 @@ export { GetRolesRequest, GetRolesResponse, Role } from "./management/get_roles"
 export { GetUsersRequest, GetUsersResponse } from "./management/get_users";
 
 export {
-    FinishMigrationRequest,
-    FinishMigrationResponse,
-    GetMigrationStatusRequest,
-    GetMigrationStatusResponse,
-    RegisterMigrationRequest,
-    RegisterMigrationResponse,
-    RollbackMigrationRequest,
-    RollbackMigrationResponse,
-} from "./management/auth_migration";
+    AuthFinishMigrationRequest,
+    AuthFinishMigrationResponse,
+    AuthGetMigrationStatusRequest,
+    AuthGetMigrationStatusResponse,
+    AuthRegisterMigrationRequest,
+    AuthRegisterMigrationResponse,
+    AuthRollbackMigrationRequest,
+    AuthRollbackMigrationResponse,
+} from "./management/migration";

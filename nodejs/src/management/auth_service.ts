@@ -11,21 +11,21 @@ import {
   ServiceError,
   UntypedServiceImplementation,
 } from "@grpc/grpc-js";
-import {
-  FinishMigrationRequest,
-  FinishMigrationResponse,
-  GetMigrationStatusRequest,
-  GetMigrationStatusResponse,
-  RegisterMigrationRequest,
-  RegisterMigrationResponse,
-  RollbackMigrationRequest,
-  RollbackMigrationResponse,
-} from "./auth_migration";
 import { CreateUserRequest, CreateUserResponse } from "./create_user";
 import { DeleteRoleRequest, DeleteRoleResponse } from "./delete_role";
 import { DeleteUserRequest, DeleteUserResponse } from "./delete_user";
 import { GetRolesRequest, GetRolesResponse } from "./get_roles";
 import { GetUsersRequest, GetUsersResponse } from "./get_users";
+import {
+  AuthFinishMigrationRequest,
+  AuthFinishMigrationResponse,
+  AuthGetMigrationStatusRequest,
+  AuthGetMigrationStatusResponse,
+  AuthRegisterMigrationRequest,
+  AuthRegisterMigrationResponse,
+  AuthRollbackMigrationRequest,
+  AuthRollbackMigrationResponse,
+} from "./migration";
 import { UpdateUserRequest, UpdateUserResponse } from "./update_user";
 import { UpsertRoleRequest, UpsertRoleResponse } from "./upsert_role";
 
@@ -64,41 +64,45 @@ export const AuthServiceService = {
     path: "/management.AuthService/RegisterMigration",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: RegisterMigrationRequest) => Buffer.from(RegisterMigrationRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => RegisterMigrationRequest.decode(value),
-    responseSerialize: (value: RegisterMigrationResponse) =>
-      Buffer.from(RegisterMigrationResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => RegisterMigrationResponse.decode(value),
+    requestSerialize: (value: AuthRegisterMigrationRequest) =>
+      Buffer.from(AuthRegisterMigrationRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => AuthRegisterMigrationRequest.decode(value),
+    responseSerialize: (value: AuthRegisterMigrationResponse) =>
+      Buffer.from(AuthRegisterMigrationResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => AuthRegisterMigrationResponse.decode(value),
   },
   finishMigration: {
     path: "/management.AuthService/FinishMigration",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: FinishMigrationRequest) => Buffer.from(FinishMigrationRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => FinishMigrationRequest.decode(value),
-    responseSerialize: (value: FinishMigrationResponse) => Buffer.from(FinishMigrationResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => FinishMigrationResponse.decode(value),
+    requestSerialize: (value: AuthFinishMigrationRequest) =>
+      Buffer.from(AuthFinishMigrationRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => AuthFinishMigrationRequest.decode(value),
+    responseSerialize: (value: AuthFinishMigrationResponse) =>
+      Buffer.from(AuthFinishMigrationResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => AuthFinishMigrationResponse.decode(value),
   },
   rollbackMigration: {
     path: "/management.AuthService/RollbackMigration",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: RollbackMigrationRequest) => Buffer.from(RollbackMigrationRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => RollbackMigrationRequest.decode(value),
-    responseSerialize: (value: RollbackMigrationResponse) =>
-      Buffer.from(RollbackMigrationResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => RollbackMigrationResponse.decode(value),
+    requestSerialize: (value: AuthRollbackMigrationRequest) =>
+      Buffer.from(AuthRollbackMigrationRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => AuthRollbackMigrationRequest.decode(value),
+    responseSerialize: (value: AuthRollbackMigrationResponse) =>
+      Buffer.from(AuthRollbackMigrationResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => AuthRollbackMigrationResponse.decode(value),
   },
   getMigrationStatus: {
     path: "/management.AuthService/GetMigrationStatus",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: GetMigrationStatusRequest) =>
-      Buffer.from(GetMigrationStatusRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => GetMigrationStatusRequest.decode(value),
-    responseSerialize: (value: GetMigrationStatusResponse) =>
-      Buffer.from(GetMigrationStatusResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer) => GetMigrationStatusResponse.decode(value),
+    requestSerialize: (value: AuthGetMigrationStatusRequest) =>
+      Buffer.from(AuthGetMigrationStatusRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => AuthGetMigrationStatusRequest.decode(value),
+    responseSerialize: (value: AuthGetMigrationStatusResponse) =>
+      Buffer.from(AuthGetMigrationStatusResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => AuthGetMigrationStatusResponse.decode(value),
   },
   createUser: {
     path: "/management.AuthService/CreateUser",
@@ -142,10 +146,10 @@ export interface AuthServiceServer extends UntypedServiceImplementation {
   upsertRole: handleUnaryCall<UpsertRoleRequest, UpsertRoleResponse>;
   deleteRole: handleUnaryCall<DeleteRoleRequest, DeleteRoleResponse>;
   getRoles: handleUnaryCall<GetRolesRequest, GetRolesResponse>;
-  registerMigration: handleUnaryCall<RegisterMigrationRequest, RegisterMigrationResponse>;
-  finishMigration: handleUnaryCall<FinishMigrationRequest, FinishMigrationResponse>;
-  rollbackMigration: handleUnaryCall<RollbackMigrationRequest, RollbackMigrationResponse>;
-  getMigrationStatus: handleUnaryCall<GetMigrationStatusRequest, GetMigrationStatusResponse>;
+  registerMigration: handleUnaryCall<AuthRegisterMigrationRequest, AuthRegisterMigrationResponse>;
+  finishMigration: handleUnaryCall<AuthFinishMigrationRequest, AuthFinishMigrationResponse>;
+  rollbackMigration: handleUnaryCall<AuthRollbackMigrationRequest, AuthRollbackMigrationResponse>;
+  getMigrationStatus: handleUnaryCall<AuthGetMigrationStatusRequest, AuthGetMigrationStatusResponse>;
   createUser: handleUnaryCall<CreateUserRequest, CreateUserResponse>;
   updateUser: handleUnaryCall<UpdateUserRequest, UpdateUserResponse>;
   deleteUser: handleUnaryCall<DeleteUserRequest, DeleteUserResponse>;
@@ -199,64 +203,64 @@ export interface AuthServiceClient extends Client {
     callback: (error: ServiceError | null, response: GetRolesResponse) => void,
   ): ClientUnaryCall;
   registerMigration(
-    request: RegisterMigrationRequest,
-    callback: (error: ServiceError | null, response: RegisterMigrationResponse) => void,
+    request: AuthRegisterMigrationRequest,
+    callback: (error: ServiceError | null, response: AuthRegisterMigrationResponse) => void,
   ): ClientUnaryCall;
   registerMigration(
-    request: RegisterMigrationRequest,
+    request: AuthRegisterMigrationRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: RegisterMigrationResponse) => void,
+    callback: (error: ServiceError | null, response: AuthRegisterMigrationResponse) => void,
   ): ClientUnaryCall;
   registerMigration(
-    request: RegisterMigrationRequest,
+    request: AuthRegisterMigrationRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: RegisterMigrationResponse) => void,
+    callback: (error: ServiceError | null, response: AuthRegisterMigrationResponse) => void,
   ): ClientUnaryCall;
   finishMigration(
-    request: FinishMigrationRequest,
-    callback: (error: ServiceError | null, response: FinishMigrationResponse) => void,
+    request: AuthFinishMigrationRequest,
+    callback: (error: ServiceError | null, response: AuthFinishMigrationResponse) => void,
   ): ClientUnaryCall;
   finishMigration(
-    request: FinishMigrationRequest,
+    request: AuthFinishMigrationRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: FinishMigrationResponse) => void,
+    callback: (error: ServiceError | null, response: AuthFinishMigrationResponse) => void,
   ): ClientUnaryCall;
   finishMigration(
-    request: FinishMigrationRequest,
+    request: AuthFinishMigrationRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: FinishMigrationResponse) => void,
+    callback: (error: ServiceError | null, response: AuthFinishMigrationResponse) => void,
   ): ClientUnaryCall;
   rollbackMigration(
-    request: RollbackMigrationRequest,
-    callback: (error: ServiceError | null, response: RollbackMigrationResponse) => void,
+    request: AuthRollbackMigrationRequest,
+    callback: (error: ServiceError | null, response: AuthRollbackMigrationResponse) => void,
   ): ClientUnaryCall;
   rollbackMigration(
-    request: RollbackMigrationRequest,
+    request: AuthRollbackMigrationRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: RollbackMigrationResponse) => void,
+    callback: (error: ServiceError | null, response: AuthRollbackMigrationResponse) => void,
   ): ClientUnaryCall;
   rollbackMigration(
-    request: RollbackMigrationRequest,
+    request: AuthRollbackMigrationRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: RollbackMigrationResponse) => void,
+    callback: (error: ServiceError | null, response: AuthRollbackMigrationResponse) => void,
   ): ClientUnaryCall;
   getMigrationStatus(
-    request: GetMigrationStatusRequest,
-    callback: (error: ServiceError | null, response: GetMigrationStatusResponse) => void,
+    request: AuthGetMigrationStatusRequest,
+    callback: (error: ServiceError | null, response: AuthGetMigrationStatusResponse) => void,
   ): ClientUnaryCall;
   getMigrationStatus(
-    request: GetMigrationStatusRequest,
+    request: AuthGetMigrationStatusRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: GetMigrationStatusResponse) => void,
+    callback: (error: ServiceError | null, response: AuthGetMigrationStatusResponse) => void,
   ): ClientUnaryCall;
   getMigrationStatus(
-    request: GetMigrationStatusRequest,
+    request: AuthGetMigrationStatusRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: GetMigrationStatusResponse) => void,
+    callback: (error: ServiceError | null, response: AuthGetMigrationStatusResponse) => void,
   ): ClientUnaryCall;
   createUser(
     request: CreateUserRequest,

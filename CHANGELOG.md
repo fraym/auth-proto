@@ -1,3 +1,9 @@
+# vNext
+
+# v0.7.3
+
+-   (bug) Fix migration message name conflicts
+
 # v0.7.2
 
 -   (bug) Fix migration proto file name
