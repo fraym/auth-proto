@@ -25,4 +25,4 @@ export {
     RegisterMigrationResponse,
     RollbackMigrationRequest,
     RollbackMigrationResponse,
-} from "./management/migration";
+} from "./management/auth_migration";

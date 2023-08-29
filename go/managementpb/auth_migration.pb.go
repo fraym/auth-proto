@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.31.0
 // 	protoc        v4.23.4
-// source: management/migration.proto
+// source: management/auth_migration.proto
 
 package managementpb
 
@@ -31,7 +31,7 @@ type RegisterMigrationRequest struct {
 func (x *RegisterMigrationRequest) Reset() {
 	*x = RegisterMigrationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[0]
+		mi := &file_management_auth_migration_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -44,7 +44,7 @@ func (x *RegisterMigrationRequest) String() string {
 func (*RegisterMigrationRequest) ProtoMessage() {}
 
 func (x *RegisterMigrationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[0]
+	mi := &file_management_auth_migration_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +57,7 @@ func (x *RegisterMigrationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterMigrationRequest.ProtoReflect.Descriptor instead.
 func (*RegisterMigrationRequest) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{0}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *RegisterMigrationRequest) GetScopes() []string {
@@ -76,7 +76,7 @@ type RegisterMigrationResponse struct {
 func (x *RegisterMigrationResponse) Reset() {
 	*x = RegisterMigrationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[1]
+		mi := &file_management_auth_migration_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -89,7 +89,7 @@ func (x *RegisterMigrationResponse) String() string {
 func (*RegisterMigrationResponse) ProtoMessage() {}
 
 func (x *RegisterMigrationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[1]
+	mi := &file_management_auth_migration_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -102,7 +102,7 @@ func (x *RegisterMigrationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterMigrationResponse.ProtoReflect.Descriptor instead.
 func (*RegisterMigrationResponse) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{1}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{1}
 }
 
 type FinishMigrationRequest struct {
@@ -114,7 +114,7 @@ type FinishMigrationRequest struct {
 func (x *FinishMigrationRequest) Reset() {
 	*x = FinishMigrationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[2]
+		mi := &file_management_auth_migration_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -127,7 +127,7 @@ func (x *FinishMigrationRequest) String() string {
 func (*FinishMigrationRequest) ProtoMessage() {}
 
 func (x *FinishMigrationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[2]
+	mi := &file_management_auth_migration_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -140,7 +140,7 @@ func (x *FinishMigrationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishMigrationRequest.ProtoReflect.Descriptor instead.
 func (*FinishMigrationRequest) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{2}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{2}
 }
 
 type FinishMigrationResponse struct {
@@ -152,7 +152,7 @@ type FinishMigrationResponse struct {
 func (x *FinishMigrationResponse) Reset() {
 	*x = FinishMigrationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[3]
+		mi := &file_management_auth_migration_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -165,7 +165,7 @@ func (x *FinishMigrationResponse) String() string {
 func (*FinishMigrationResponse) ProtoMessage() {}
 
 func (x *FinishMigrationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[3]
+	mi := &file_management_auth_migration_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -178,7 +178,7 @@ func (x *FinishMigrationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishMigrationResponse.ProtoReflect.Descriptor instead.
 func (*FinishMigrationResponse) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{3}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{3}
 }
 
 type RollbackMigrationRequest struct {
@@ -190,7 +190,7 @@ type RollbackMigrationRequest struct {
 func (x *RollbackMigrationRequest) Reset() {
 	*x = RollbackMigrationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[4]
+		mi := &file_management_auth_migration_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -203,7 +203,7 @@ func (x *RollbackMigrationRequest) String() string {
 func (*RollbackMigrationRequest) ProtoMessage() {}
 
 func (x *RollbackMigrationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[4]
+	mi := &file_management_auth_migration_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -216,7 +216,7 @@ func (x *RollbackMigrationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RollbackMigrationRequest.ProtoReflect.Descriptor instead.
 func (*RollbackMigrationRequest) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{4}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{4}
 }
 
 type RollbackMigrationResponse struct {
@@ -228,7 +228,7 @@ type RollbackMigrationResponse struct {
 func (x *RollbackMigrationResponse) Reset() {
 	*x = RollbackMigrationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[5]
+		mi := &file_management_auth_migration_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -241,7 +241,7 @@ func (x *RollbackMigrationResponse) String() string {
 func (*RollbackMigrationResponse) ProtoMessage() {}
 
 func (x *RollbackMigrationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[5]
+	mi := &file_management_auth_migration_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -254,7 +254,7 @@ func (x *RollbackMigrationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RollbackMigrationResponse.ProtoReflect.Descriptor instead.
 func (*RollbackMigrationResponse) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{5}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{5}
 }
 
 type GetMigrationStatusRequest struct {
@@ -266,7 +266,7 @@ type GetMigrationStatusRequest struct {
 func (x *GetMigrationStatusRequest) Reset() {
 	*x = GetMigrationStatusRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[6]
+		mi := &file_management_auth_migration_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -279,7 +279,7 @@ func (x *GetMigrationStatusRequest) String() string {
 func (*GetMigrationStatusRequest) ProtoMessage() {}
 
 func (x *GetMigrationStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[6]
+	mi := &file_management_auth_migration_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -292,7 +292,7 @@ func (x *GetMigrationStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMigrationStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetMigrationStatusRequest) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{6}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{6}
 }
 
 type GetMigrationStatusResponse struct {
@@ -306,7 +306,7 @@ type GetMigrationStatusResponse struct {
 func (x *GetMigrationStatusResponse) Reset() {
 	*x = GetMigrationStatusResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_management_migration_proto_msgTypes[7]
+		mi := &file_management_auth_migration_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -319,7 +319,7 @@ func (x *GetMigrationStatusResponse) String() string {
 func (*GetMigrationStatusResponse) ProtoMessage() {}
 
 func (x *GetMigrationStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_management_migration_proto_msgTypes[7]
+	mi := &file_management_auth_migration_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -332,7 +332,7 @@ func (x *GetMigrationStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMigrationStatusResponse.ProtoReflect.Descriptor instead.
 func (*GetMigrationStatusResponse) Descriptor() ([]byte, []int) {
-	return file_management_migration_proto_rawDescGZIP(), []int{7}
+	return file_management_auth_migration_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetMigrationStatusResponse) GetDone() bool {
@@ -342,45 +342,46 @@ func (x *GetMigrationStatusResponse) GetDone() bool {
 	return false
 }
 
-var File_management_migration_proto protoreflect.FileDescriptor
+var File_management_auth_migration_proto protoreflect.FileDescriptor
 
-var file_management_migration_proto_rawDesc = []byte{
-	0x0a, 0x1a, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x2f, 0x6d, 0x69, 0x67,
-	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0a, 0x6d, 0x61,
-	0x6e, 0x61, 0x67, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x22, 0x32, 0x0a, 0x18, 0x52, 0x65, 0x67, 0x69,
-	0x73, 0x74, 0x65, 0x72, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x63, 0x6f, 0x70, 0x65, 0x73, 0x18, 0x02,
-	0x20, 0x03, 0x28, 0x09, 0x52, 0x06, 0x73, 0x63, 0x6f, 0x70, 0x65, 0x73, 0x22, 0x1b, 0x0a, 0x19,
-	0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x18, 0x0a, 0x16, 0x46, 0x69, 0x6e,
-	0x69, 0x73, 0x68, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x22, 0x19, 0x0a, 0x17, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4d, 0x69, 0x67,
-	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1a,
-	0x0a, 0x18, 0x52, 0x6f, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x1b, 0x0a, 0x19, 0x52, 0x6f,
-	0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1b, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x4d, 0x69,
-	0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x22, 0x30, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x4d, 0x69, 0x67, 0x72, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x6f, 0x6e, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
-	0x52, 0x04, 0x64, 0x6f, 0x6e, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+var file_management_auth_migration_proto_rawDesc = []byte{
+	0x0a, 0x1f, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x2f, 0x61, 0x75, 0x74,
+	0x68, 0x5f, 0x6d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x12, 0x0a, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x22, 0x32, 0x0a,
+	0x18, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x63, 0x6f,
+	0x70, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x06, 0x73, 0x63, 0x6f, 0x70, 0x65,
+	0x73, 0x22, 0x1b, 0x0a, 0x19, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x4d, 0x69, 0x67,
+	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x18,
+	0x0a, 0x16, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x19, 0x0a, 0x17, 0x46, 0x69, 0x6e, 0x69,
+	0x73, 0x68, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x1a, 0x0a, 0x18, 0x52, 0x6f, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x4d,
+	0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22,
+	0x1b, 0x0a, 0x19, 0x52, 0x6f, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x4d, 0x69, 0x67, 0x72, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1b, 0x0a, 0x19,
+	0x47, 0x65, 0x74, 0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x30, 0x0a, 0x1a, 0x47, 0x65, 0x74,
+	0x4d, 0x69, 0x67, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x6f, 0x6e, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x04, 0x64, 0x6f, 0x6e, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
-	file_management_migration_proto_rawDescOnce sync.Once
-	file_management_migration_proto_rawDescData = file_management_migration_proto_rawDesc
+	file_management_auth_migration_proto_rawDescOnce sync.Once
+	file_management_auth_migration_proto_rawDescData = file_management_auth_migration_proto_rawDesc
 )
 
-func file_management_migration_proto_rawDescGZIP() []byte {
-	file_management_migration_proto_rawDescOnce.Do(func() {
-		file_management_migration_proto_rawDescData = protoimpl.X.CompressGZIP(file_management_migration_proto_rawDescData)
+func file_management_auth_migration_proto_rawDescGZIP() []byte {
+	file_management_auth_migration_proto_rawDescOnce.Do(func() {
+		file_management_auth_migration_proto_rawDescData = protoimpl.X.CompressGZIP(file_management_auth_migration_proto_rawDescData)
 	})
-	return file_management_migration_proto_rawDescData
+	return file_management_auth_migration_proto_rawDescData
 }
 
-var file_management_migration_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_management_migration_proto_goTypes = []interface{}{
+var file_management_auth_migration_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_management_auth_migration_proto_goTypes = []interface{}{
 	(*RegisterMigrationRequest)(nil),   // 0: management.RegisterMigrationRequest
 	(*RegisterMigrationResponse)(nil),  // 1: management.RegisterMigrationResponse
 	(*FinishMigrationRequest)(nil),     // 2: management.FinishMigrationRequest
@@ -390,7 +391,7 @@ var file_management_migration_proto_goTypes = []interface{}{
 	(*GetMigrationStatusRequest)(nil),  // 6: management.GetMigrationStatusRequest
 	(*GetMigrationStatusResponse)(nil), // 7: management.GetMigrationStatusResponse
 }
-var file_management_migration_proto_depIdxs = []int32{
+var file_management_auth_migration_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -398,13 +399,13 @@ var file_management_migration_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_management_migration_proto_init() }
-func file_management_migration_proto_init() {
-	if File_management_migration_proto != nil {
+func init() { file_management_auth_migration_proto_init() }
+func file_management_auth_migration_proto_init() {
+	if File_management_auth_migration_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_management_migration_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RegisterMigrationRequest); i {
 			case 0:
 				return &v.state
@@ -416,7 +417,7 @@ func file_management_migration_proto_init() {
 				return nil
 			}
 		}
-		file_management_migration_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RegisterMigrationResponse); i {
 			case 0:
 				return &v.state
@@ -428,7 +429,7 @@ func file_management_migration_proto_init() {
 				return nil
 			}
 		}
-		file_management_migration_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FinishMigrationRequest); i {
 			case 0:
 				return &v.state
@@ -440,7 +441,7 @@ func file_management_migration_proto_init() {
 				return nil
 			}
 		}
-		file_management_migration_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FinishMigrationResponse); i {
 			case 0:
 				return &v.state
@@ -452,7 +453,7 @@ func file_management_migration_proto_init() {
 				return nil
 			}
 		}
-		file_management_migration_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RollbackMigrationRequest); i {
 			case 0:
 				return &v.state
@@ -464,7 +465,7 @@ func file_management_migration_proto_init() {
 				return nil
 			}
 		}
-		file_management_migration_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RollbackMigrationResponse); i {
 			case 0:
 				return &v.state
@@ -476,7 +477,7 @@ func file_management_migration_proto_init() {
 				return nil
 			}
 		}
-		file_management_migration_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetMigrationStatusRequest); i {
 			case 0:
 				return &v.state
@@ -488,7 +489,7 @@ func file_management_migration_proto_init() {
 				return nil
 			}
 		}
-		file_management_migration_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_management_auth_migration_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetMigrationStatusResponse); i {
 			case 0:
 				return &v.state
@@ -505,18 +506,18 @@ func file_management_migration_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_management_migration_proto_rawDesc,
+			RawDescriptor: file_management_auth_migration_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_management_migration_proto_goTypes,
-		DependencyIndexes: file_management_migration_proto_depIdxs,
-		MessageInfos:      file_management_migration_proto_msgTypes,
+		GoTypes:           file_management_auth_migration_proto_goTypes,
+		DependencyIndexes: file_management_auth_migration_proto_depIdxs,
+		MessageInfos:      file_management_auth_migration_proto_msgTypes,
 	}.Build()
-	File_management_migration_proto = out.File
-	file_management_migration_proto_rawDesc = nil
-	file_management_migration_proto_goTypes = nil
-	file_management_migration_proto_depIdxs = nil
+	File_management_auth_migration_proto = out.File
+	file_management_auth_migration_proto_rawDesc = nil
+	file_management_auth_migration_proto_goTypes = nil
+	file_management_auth_migration_proto_depIdxs = nil
 }

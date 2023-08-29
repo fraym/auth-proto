@@ -11,11 +11,6 @@ import {
   ServiceError,
   UntypedServiceImplementation,
 } from "@grpc/grpc-js";
-import { CreateUserRequest, CreateUserResponse } from "./create_user";
-import { DeleteRoleRequest, DeleteRoleResponse } from "./delete_role";
-import { DeleteUserRequest, DeleteUserResponse } from "./delete_user";
-import { GetRolesRequest, GetRolesResponse } from "./get_roles";
-import { GetUsersRequest, GetUsersResponse } from "./get_users";
 import {
   FinishMigrationRequest,
   FinishMigrationResponse,
@@ -25,7 +20,12 @@ import {
   RegisterMigrationResponse,
   RollbackMigrationRequest,
   RollbackMigrationResponse,
-} from "./migration";
+} from "./auth_migration";
+import { CreateUserRequest, CreateUserResponse } from "./create_user";
+import { DeleteRoleRequest, DeleteRoleResponse } from "./delete_role";
+import { DeleteUserRequest, DeleteUserResponse } from "./delete_user";
+import { GetRolesRequest, GetRolesResponse } from "./get_roles";
+import { GetUsersRequest, GetUsersResponse } from "./get_users";
 import { UpdateUserRequest, UpdateUserResponse } from "./update_user";
 import { UpsertRoleRequest, UpsertRoleResponse } from "./upsert_role";
 

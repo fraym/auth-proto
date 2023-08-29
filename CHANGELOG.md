@@ -1,3 +1,7 @@
+# v0.7.2
+
+-   (bug) Fix migration proto file name
+
 # v0.7.1
 
 -   (bug) Remove unneeded fields form migraiton messages

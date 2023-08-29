@@ -7,7 +7,7 @@ import "management/create_user.proto";
 import "management/update_user.proto";
 import "management/delete_user.proto";
 import "management/get_users.proto"; 
-import "management/migration.proto";
+import "management/auth_migration.proto";
   
 service AuthService {
 	rpc UpsertRole(UpsertRoleRequest) returns (UpsertRoleResponse);
